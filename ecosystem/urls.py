@@ -15,7 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from pjm.views import sayhello, hello3
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls), 
+    # will run admin.site.urls this function, so need import admin
+    path('', sayhello),
+    path('hello3/', hello3),
 ]
