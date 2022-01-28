@@ -15,11 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from pjm.views import sayhello, hello3
+from pjm import views
+# starterpage, hello3, listone, listall
 
 urlpatterns = [
     path('admin/', admin.site.urls), 
     # will run admin.site.urls this function, so need import admin
-    path('', sayhello),
+    path('', listall),
     path('hello3/', hello3),
+    path('listone/', listone),
+    path('listall/', listall),
 ]
