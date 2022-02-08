@@ -1,0 +1,21 @@
+<!-- base.html 22-01-26 -->
+{% load static %}
+<!DOCTYPE html>
+<!--
+The base basic template. All other template based on this.
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>EcoSystem</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="{% static 'dist513/css/bootstrap.min.css' %}">
+<!--
+    {% block css %} {% endblock %}
+    {% block title %} {% endblock %}
+-->
+  </head>
+  <body>
+    {% block content %} {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,85 @@
+{% extends "head-footer.html" %}
+{% load static %}
+
+{% block middle %}
+  <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- search form (Optional) -->
+
+      <!-- /.search form -->
+
+      <!-- Sidebar Menu -->
+      <ul class="sidebar-menu">
+        <li class="header">{{ request.user.name }}</li>
+        <!-- Optionally, you can add icons to the links -->
+        <!-- Max: possible place to add other main apps -->
+        
+        <li class="treeview">
+          <a href="#"><i class="fa fa-users"></i> <span>Projects</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="#"><i class="fa fa-caret-right"></i>My Projects</a></li>
+            <li><a href="#"><i class="fa fa-caret-right"></i>Sub-Reports</a></li>
+          </ul>
+        </li>
+
+        <li class="treeview">
+          <a href="#"><i class="fa fa-users"></i> <span>CAR</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+        </li>
+
+        <!-- Max: other main app menu end -->
+        <li class="treeview" id="DailyReport">
+          <a href="#"><i class="fa fa-calendar"></i> <span>Daily Reports</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li id="MyReport"><a href="#"><i class="fa fa-caret-right"></i>My Reports</a></li>
+            <li><a href="#"><i class="fa fa-caret-right"></i>Sub-Reports</a></li>
+          </ul>
+        </li>
+
+        <li class="treeview">
+          <a href="#"><i class="fa fa-users"></i> <span>SOP</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="#"><i class="fa fa-caret-right"></i>AE</a></li>
+            <li><a href="#"><i class="fa fa-caret-right"></i>IE</a></li>
+            <li><a href="#"><i class="fa fa-caret-right"></i>ME</a></li>
+            <li><a href="#"><i class="fa fa-caret-right"></i>RF</a></li>
+            <li><a href="#"><i class="fa fa-caret-right"></i>AP</a></li>
+            <li><a href="#"><i class="fa fa-caret-right"></i>SFA</a></li>
+          </ul>
+        </li>
+
+      </ul>
+      <!-- /.sidebar-menu of line 24 ul -->
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+  {% block content %}
+
+
+  {% endblock %}
+
+</div>
+<!-- /.content-wrapper -->
+
+{% endblock %}

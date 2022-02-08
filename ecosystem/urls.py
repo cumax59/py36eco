@@ -16,13 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from pjm import views
-# starterpage, hello3, listone, listall
+# hello3, listone, listall
 
 urlpatterns = [
     path('admin/', admin.site.urls), 
     # will run admin.site.urls this function, so need import admin
-    path('', listall),
-    path('hello3/', hello3),
-    path('listone/', listone),
-    path('listall/', listall),
+    path('', views.starterpage),
+    path('hello3/', views.hello3),
+    path('listone/', views.listone),
+    path('listall/', views.listall),
 ]
