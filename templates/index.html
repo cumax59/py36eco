@@ -4,15 +4,43 @@
 {% block content %}
 
     <!-- Main content -->
-  <section class="content">
 
+  <section class="content">
+    <div class="fs-5 fw-semibold">Project Management </div>
+    <div>
+      <table class="table table-hover table-striped">
+        <th>ID</th>
+        <th>專案名稱</th>
+        <th>專案類別</th>
+        <th>專案描述</th>
+        <th>立案日期</th>
+        <th>開始日期</th>
+        <th>廠區</th>
+        <th>部門</th>
+        <th>創建人</th>
+        <tbody>
+        {% for unit in all_ecoprojects %}
+          <tr>
+            <td>{{ unit.prj_id }}</td>
+            <td>{{ unit.prj_name }} </td>
+            <td>{{ unit.category }} </td>
+            <td>{{ unit.description }} </td>
+            <td>{{ unit.create_date }} </td>
+            <td>{{ unit.start_date }} </td>
+            <td>{{ unit.dpbg_site }} </td>
+            <td>{{ unit.pe_department }} </td>
+            <td>{{ unit.prj_creator }} </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>  
 
   </section>
 
     <!-- /.content -->
 
 {% endblock %}
-
 
 {% block javascripts %}
 

@@ -1,85 +1,87 @@
-{% extends "head-footer.html" %}
+{% extends "base-static.html" %}
 {% load static %}
 
-{% block middle %}
-  <aside class="main-sidebar">
-        <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-      <!-- search form (Optional) -->
-
-      <!-- /.search form -->
-
-      <!-- Sidebar Menu -->
-      <ul class="sidebar-menu">
-        <li class="header">{{ request.user.name }}</li>
-        <!-- Optionally, you can add icons to the links -->
-        <!-- Max: possible place to add other main apps -->
-        
-        <li class="treeview">
-          <a href="#"><i class="fa fa-users"></i> <span>Projects</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-caret-right"></i>My Projects</a></li>
-            <li><a href="#"><i class="fa fa-caret-right"></i>Sub-Reports</a></li>
-          </ul>
-        </li>
-
-        <li class="treeview">
-          <a href="#"><i class="fa fa-users"></i> <span>CAR</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-        </li>
-
-        <!-- Max: other main app menu end -->
-        <li class="treeview" id="DailyReport">
-          <a href="#"><i class="fa fa-calendar"></i> <span>Daily Reports</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li id="MyReport"><a href="#"><i class="fa fa-caret-right"></i>My Reports</a></li>
-            <li><a href="#"><i class="fa fa-caret-right"></i>Sub-Reports</a></li>
-          </ul>
-        </li>
-
-        <li class="treeview">
-          <a href="#"><i class="fa fa-users"></i> <span>SOP</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-caret-right"></i>AE</a></li>
-            <li><a href="#"><i class="fa fa-caret-right"></i>IE</a></li>
-            <li><a href="#"><i class="fa fa-caret-right"></i>ME</a></li>
-            <li><a href="#"><i class="fa fa-caret-right"></i>RF</a></li>
-            <li><a href="#"><i class="fa fa-caret-right"></i>AP</a></li>
-            <li><a href="#"><i class="fa fa-caret-right"></i>SFA</a></li>
-          </ul>
-        </li>
-
-      </ul>
-      <!-- /.sidebar-menu of line 24 ul -->
-    </section>
-    <!-- /.sidebar -->
-  </aside>
+{% block main %}
 
 
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
+<div class="flex-shrink-0 p-3 bg-white" style="width: 180px;">
+  
+  <ul class="list-unstyled ps-0">
+    <li class="mb-1">
+      <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true"> 
+        Home
+      </button>
+      <div class="collapse show" id="home-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li><a href="#" class="link-dark rounded">Overview</a></li>
+          <li><a href="#" class="link-dark rounded">Updates</a></li>
+          <li><a href="#" class="link-dark rounded">Reports</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="mb-1">
+      <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+        Dashboard
+      </button>
+      <div class="collapse" id="dashboard-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li><a href="#" class="link-dark rounded">Overview</a></li>
+          <li><a href="#" class="link-dark rounded">Weekly</a></li>
+          <li><a href="#" class="link-dark rounded">Monthly</a></li>
+          <li><a href="#" class="link-dark rounded">Annually</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="mb-1">
+      <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+        Projects
+      </button>
+      <div class="collapse" id="orders-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li><a href="#" class="link-dark rounded">New</a></li>
+          <li><a href="#" class="link-dark rounded">Processed</a></li>
+          <li><a href="#" class="link-dark rounded">Tasks</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="mb-1">
+      <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+        Calendar
+      </button>
+      <div class="collapse" id="orders-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li><a href="#" class="link-dark rounded">New</a></li>
+          <li><a href="#" class="link-dark rounded">Processed</a></li>
+          <li><a href="#" class="link-dark rounded">Tasks</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="border-top my-3"></li>
+    <li class="mb-1">
+      <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+        Account
+      </button>
+      <div class="collapse" id="account-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li><a href="#" class="link-dark rounded">New...</a></li>
+          <li><a href="#" class="link-dark rounded">Profile</a></li>
+          <li><a href="#" class="link-dark rounded">Settings</a></li>
+          <li><a href="#" class="link-dark rounded">Sign out</a></li>
+        </ul>
+      </div>
+    </li>
+  </ul>  
+</div>  <!-- above div is end of sidebars-->
 
-  {% block content %}
-
-
-  {% endblock %}
-
-</div>
-<!-- /.content-wrapper -->
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper"> 
+    
+    {% block content %}
+  
+  
+    {% endblock %}
+  
+  </div>
+  <!-- /.content-wrapper -->
 
 {% endblock %}

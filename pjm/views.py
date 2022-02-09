@@ -15,7 +15,7 @@ def starterpage(request):
 """
 def starterpage(request):
     all_ecoprojects = ecoProject.objects.all().order_by('prj_id') 
-    return render(request, "listall.html", locals())
+    return render(request, "index.html", locals())
 
 def hello3(request):
     now = datetime.now()
