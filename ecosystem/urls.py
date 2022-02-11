@@ -25,4 +25,7 @@ urlpatterns = [
     path('hello3/', views.hello3),
     path('listone/', views.listone),
     path('listall/', views.listall),
+    path('createproject/', views.createproject),
+    path('post/', views.post),
+    path('post1/', views.post1),
 ]

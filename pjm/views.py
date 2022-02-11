@@ -31,3 +31,26 @@ def listone(request):
 def listall(request):
     all_ecoprojects = ecoProject.objects.all().order_by('prj_id') 
     return render(request, "listall.html", locals())
+
+def createproject(request):
+    try:
+        unit = ecoProject.objects.get(prj_id=3)     # read only 1 record
+    except:
+        errormessage = "(Read Error!)"
+    return render(request, "listone.html", locals())
+
+def post(request):
+    if request.method == "POST":
+        mess = request.POST['prj_name']
+        # print(mess)
+    else:
+        mess = "No message!"
+    return render(request, "post.html", locals())
+
+def post1(request):
+    if request.method == "POST":
+        mess = request.POST['prj_name']
+        # print(mess)
+    else:
+        mess = "No message!"
+    return render(request, "post1.html", locals())

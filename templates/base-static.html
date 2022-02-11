@@ -24,16 +24,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
         font-size: 3.5rem;
       }
     }
+    .bg-blue {
+      background-color: #004bff;
+    }  
   </style>
 
   <!-- Custom styles for this template -->
   <link href="{% static 'css/headers.css' %}" rel="stylesheet">
   <link href="{% static 'css/sidebars.css' %}" rel="stylesheet">
+  <!-- <link href="{% static 'css/pjm-style.css' %}" rel="stylesheet"> -->
   
   {% block css %} {% endblock %}
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition">
 <!-- body class="hold-transition skin-blue sidebar-mini"-->
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
   <symbol id="person-workspace" viewbox="0 0 16 16"> 
@@ -61,10 +65,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- Logo icon above svg format -->
 
 <!-- <header class="main-header"> -->
-  <header class="py-1 mb-3 border-bottom bg-blue">
+  <header class="py-1 mb-2 border-bottom bg-blue">
     <div class="container-fluid d-grid gap-3 align-items-center" style="grid-template-columns: 1fr 2fr;">
       <!-- Logo -->
-      <a href="#" class="d-flex align-items-center col-lg-4 mb-2 mb-lg-0 link-dark text-decoration-none" aria-expanded="false">
+      <a href="#" class="d-flex align-items-center col-lg-4 mb-2 mb-lg-0 link-dark text-decoration-none text-white" aria-expanded="false">
         <svg class="bi me-2" width="40" height="32"><use xlink:href="#person-workspace"/></svg>
         <span class="fs-5 fw-semibold">EcoSystem</span>
       </a>
@@ -72,26 +76,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="d-flex align-items-center">
         <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
           <li>
-            <a href="#" class="nav-link text-dark">
-              <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#home"/></svg>
+            <a href="#" class="nav-link text-white">
+              <svg class="bi d-block mx-auto mb-1" width="20" height="20"><use xlink:href="#home"/></svg>
               Home
             </a>
           </li>
           <li>
-            <a href="#" class="nav-link text-dark">
-              <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#speedometer2"/></svg>
+            <a href="#" class="nav-link text-white">
+              <svg class="bi d-block mx-auto mb-1" width="20" height="20"><use xlink:href="#speedometer2"/></svg>
               Dashboard
             </a>
           </li>
           <li>
-            <a href="#" class="nav-link text-dark">
-              <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#table"/></svg>
+            <a href="#" class="nav-link text-white">
+              <svg class="bi d-block mx-auto mb-1" width="20" height="20"><use xlink:href="#table"/></svg>
               Calendar
             </a>
           </li>
           <li>
-            <a href="#" class="nav-link text-dark">
-              <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>
+            <a href="#" class="nav-link text-white">
+              <svg class="bi d-block mx-auto mb-1" width="20" height="20"><use xlink:href="#grid"/></svg>
               Projects
             </a>
           </li>
@@ -104,7 +108,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </form> -->
 
         <div class="flex-shrink-0 dropdown">
-          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+          <a href="#" class="text-white d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
             <!-- <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle"> -->
             <img src="{% static 'image/max_bighead.jpg' %}" alt="Max" width="32" height="32" class="rounded-circle">
           </a>
