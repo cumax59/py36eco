@@ -3,32 +3,30 @@
 
 {% block css %}
   <link href="{% static 'css/form-validation.css' %}" rel="stylesheet">
-{% endblock %}
 
+<!--   <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+  <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+  <link rel="stylesheet" href="{% static 'plugins/bootstrap4/css/bootstrap-datetimepicker.min.css' %}"> -->
+
+{% endblock %}
 
 {% block content %}
 <!-- Main content -->
 
   <section class="content">
     <!-- <div class="fs-5 fw-semibold">Project Management </div> -->   
-    <form action="/post1/" method="POST" name="form1">
-        {% csrf_token %}
-        <div> POST1 enter a message: <input type="text" name="prj_name" />
-            <input type="submit" value="Send" />
-        </div>
-        <div> Data we received is: {{ mess }}
-        </div>
-    </form>
-    <br>
-  <!-- Bootstrap example checkout start... -->
+
+  <!-- Project create form start here... -->
   <div class="col-md-10 col-lg-10">
-    <h4 class="mb-3">Adding New Project ...</h4>
-    <form class="needs-validation" novalidate>
+    <h5 class="py-3 mb-2">Add a new project:</h5>
+    <form action="/post1/" method="POST" name="prjCreateForm" class="needs-validation" novalidate>
+      {% csrf_token %}
+
       <div class="row g-3">
 
         <div class="col-12">
-          <label for="prjName" class="form-label">Project Name</label>
-          <input type="text" class="form-control" id="cPrjName" placeholder="" value="" required>
+          <label for="cPrjName" class="form-label">Project Name</label>
+          <input type="text" class="form-control" name="cPrjName" id="id_cPrjName" placeholder="" value="" required>
           <div class="invalid-feedback">
             Valid project name is required.
           </div>
@@ -36,11 +34,11 @@
         
         <div class="col-sm-3">
           <label for="cPriority" class="form-label">Priority</label>
-          <select class="form-select" id="cPriority" required>
+          <select class="form-select" name="cPriority" id="id_cPriority" required>
             <option value="">Choose...</option>
-            <option>Highest</option>
-            <option>Important</option>
-            <option>Normal</option>
+            {% for priority in priority_all %}
+            <option value="{{ priority.key }}">{{ priority.value }}</option>
+            {% endfor %}
           </select>
           <div class="invalid-feedback">
             Please assign priority.
@@ -49,24 +47,11 @@
 
         <div class="col-sm-3">
           <label for="cCategory" class="form-label">Category</label>
-          <select class="form-select" id="cCategory" required>
+          <select class="form-select" name="cCategory" id="id_cCategory" required>
             <option value="">Choose...</option>
-            <option>年度計畫</option>
-            <option>人力精實</option>
-            <option>測試自動化</option>
-            <option>設備備品</option>
-            <option>耗材降低</option>
-            <option>包材管控</option>
-            <option>Attrition降低</option>
-            <option>製程改善</option>
-            <option>效率提升</option>
-            <option>UPH提升</option>
-            <option>品質提升</option>
-            <option>自動化提升</option>
-            <option>報表E化</option>
-            <option>節能減排</option>
-            <option>工程機電</option>
-            <option>其他</option>
+            {% for category in category_all %}
+            <option value="{{ category.key }}">{{ category.value }}</option>
+            {% endfor %}
           </select>
           <div class="invalid-feedback">
             Please specify category.
@@ -75,40 +60,44 @@
 
         <div class="col-12">
           <label for="cDescription" class="form-label">Description</label>
-          <textarea class="form-control" id="cDescription" style="height: 80px" placeholder="" value="" required>
-          </textarea> 
+          <input type="text" class="form-control" name="cDescription" id="cDescription" placeholder="" value="" required>
           <div class="invalid-feedback">
             Please describe the project details.
           </div>
         </div>
+ 
+        <div class="col-sm-6 col-md-4">
+          <label for="cCreateDate" class="form-label">Create Date</label>
+          <input type="date" class="form-control" name="cCreateDate" id="id_cCreateDate" placeholder="" required>
+          <div class="invalid-feedback">
+            Please specify project create date.
+          </div>
+        </div>
 
-        <div class="col-sm-6 col-md-6">
+        <div class="col-sm-6 col-md-4">
           <label for="cStartDate" class="form-label">Start Date</label>
-          <input type="text" class="form-control" id="cStartDate" placeholder="" required>
+          <input type="date" class="form-control" name="cStartDate" id="cStartDate" placeholder="" required>
           <div class="invalid-feedback">
             Please specify project start date.
           </div>
         </div>
 
-        <div class="col-sm-6 col-md-6">
-          <label for="cEndDate" class="form-label">Planned Complete Date</label>
-          <input type="text" class="form-control" id="cEndDate" placeholder="" required>
+        <div class="col-sm-6 col-md-4">
+          <label for="cEndDate" class="form-label">To Complete By</label>
+          <input type="date" class="form-control" name="cEndDate" id="cEndDate" placeholder="" required>
           <div class="invalid-feedback">
             Please specify planned complete date.
           </div>
         </div>
+        <hr class="my-4">
 
         <div class="col-sm-3">
-          <label for="cCurrentStage" class="form-label">Current Stage</label>
-          <select class="form-select" id="cCurrentStage" required>
+          <label for="cStage" class="form-label">Current Stage</label>
+          <select class="form-select" name="cStage" id="id_cStage" required>
             <option value="">Choose...</option>
-            <option>立案中</option>
-            <option>需求分析</option>
-            <option>待排配開發</option>
-            <option>開發中</option>
-            <option>驗證中</option>
-            <option>已上線</option>
-            <option>取消</option>
+            {% for stage in stage_all %}
+            <option value="{{ stage.key }}">{{ stage.value }}</option>
+            {% endfor %}
           </select>
           <div class="invalid-feedback">
             Please specify project current stage.
@@ -117,16 +106,11 @@
 
         <div class="col-sm-3">
           <label for="cSite" class="form-label">FX Site</label>
-          <select class="form-select" id="cSite" required>
+          <select class="form-select" name="cSite" id="cSite" required>
             <option value="">Choose...</option>
-            <option>ALL</option>
-            <option>GL</option>
-            <option>ZZ1</option>
-            <option>ZZ2</option>
-            <option>ZZ SUR</option>
-            <option>TY</option>
-            <option>BZ</option>
-            <option>TN</option>
+            {% for site in site_all %}
+            <option value="{{ site.key }}">{{ site.value }}</option>
+            {% endfor %}
           </select>
           <div class="invalid-feedback">
             Please assign a factory site.
@@ -135,43 +119,38 @@
 
         <div class="col-sm-3">
           <label for="cDepartment" class="form-label">Department</label>
-          <select class="form-select" id="cDepartment" required>
+          <select class="form-select" name="cDepartment" id="cDepartment" required>
             <option value="">Choose...</option>
-            <option>ALL</option>
-            <option>SFA</option>
-            <option>IE</option>
-            <option>AAE</option>
-            <option>AE</option>
-            <option>ME</option>
-            <option>AP</option>
-            <option>RF</option>
-            <option>Asset</option>
-            <option>PDCA</option>
-            <option>MEDD</option>
-            <option>CSA</option>
-            <option>Support</option>
+            {% for department in department_all %}
+            <option value="{{ department.key }}">{{ department.value }}</option>
+            {% endfor %}
           </select>
           <div class="invalid-feedback">
             Please assign a PE department.
           </div>
         </div>
-
         <hr class="my-4">
-      
-   <!--      <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button> -->
-        <button type="button" id="btnCancel" class="col-md-4 btn btn-primary margin-right ">Cancel</button>
-        <button type="button" id="btnSave" class="col-md-4 btn btn-secondary margin-right ">Save</button>
 
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+          <button id="btnSave" style="width: 90px;" class="px-4 me-sm-3 btn btn-primary" type="submit">Save</button>
+          <button id="btnCancel" style="width: 90px;" class="px-4 me-sm-3 btn btn-outline-secondary" type="reset">Reset</button> 
+          <!-- <button class="w-100 btn btn-primary btn-lg" type="submit">Checkout</button> -->
+        </div>
+
+      </div>
     </form>
+        
     <hr class="my-4">
   </div>    
 
-  </section>
+</section>
 
 
 <!-- /.content -->
 {% endblock %}
 
 {% block javascripts %}
-<script src="% static 'js/form-validation.js' %}"></script>
+<script src="{% static 'js/form-validation.js' %}"></script>
+
+
 {% endblock %}
