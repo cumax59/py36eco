@@ -1,0 +1,192 @@
+{% extends "base-left.html" %}
+{% load static %}
+
+{% block css %}
+{% endblock %}
+
+{% block content %}
+
+  <!-- first content: dashboard -->
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-4 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Dashboard</h1>
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <div class="btn-group me-2">
+      <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+      <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+    </div>
+    <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+      <span data-feather="calendar"></span>
+      This week
+    </button>
+  </div>
+</div>
+
+
+<div class="row mb-2 align-items-center">
+
+  <div class="col-md-8">
+    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">    
+      <div class="col p-4 d-flex flex-column position-static">
+        <canvas class="my-4" id="myChart2" width="900" height="410"></canvas>
+      </div>
+    </div>
+  </div>
+
+<div class="col-md-4">
+  <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">    
+    <div class="col p-4 d-flex flex-column position-static">
+      <canvas class="my-4" id="myPieChart" width="300" height="300"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+    <div class="col p-4 d-flex flex-column position-static">
+      <canvas class="my-4" id="myChart" width="900" height="380">2d</canvas>
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+<script src="{% static 'chartjs371/chart.js' %}"></script>
+<!-- <script src="{% static 'js/dashboard.js' %}"></script> -->
+<script>
+/* globals Chart:false, feather:false */
+/* feather.replace({ 'aria-hidden': 'true' }) */
+(function () {
+  'use strict'
+
+  // Graphs
+  var ctx = document.getElementById('myChart')
+  // eslint-disable-next-line no-unused-vars
+  var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday'
+      ],
+      datasets: [{
+        label: 'Weekly Yield Trend',
+        data: [
+          95.87,
+          95.93,
+          96.11,
+          95.97,
+          96.03,
+          95.94
+        ],
+        lineTension: 0,
+        backgroundColor: '#007bff',
+        borderColor: '#007bff',
+        borderWidth: 4,
+        pointBackgroundColor: '#007bff'
+      }]
+    },
+    options: {
+      scales: {
+              y: {
+                  beginAtZero: false
+              }
+          },
+      legend: {
+        display: false
+      },
+      plugins: {
+            title: {
+                display: true,
+                text: 'Zonda Daily Yield Trend'
+          }
+        }
+      
+    }
+  })
+})()
+</script>
+<script>
+  const ctx = document.getElementById('myChart2').getContext('2d');
+  const myChart2 = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: ['Material', 'Method', 'Environment', 'Machine', 'Workmanship'],
+          datasets: [{
+              label: 'Material',
+              data: [19, 12, 3, 5, 2],
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)'
+              ],
+              borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)'
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          },
+          plugins: {
+            title: {
+                display: true,
+                text: 'Zonda Weekly Issues Breakdown'
+          }
+        }
+      }
+  });
+  </script> 
+  <script>
+    const ctx2 = document.getElementById('myPieChart');
+    const myPieChart = new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+            labels: ['Material', 'Method', 'Environment', 'Machine', 'Workmanship'],
+            datasets: [{
+                label: 'Issues Breakdown',
+                data: [19, 12, 3, 5, 2],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)'
+                ],
+                hoverOffset: 3
+            }]
+        },
+        options: {
+          plugins: {
+            title: {
+                display: true,
+                text: 'Zonda Weekly Issues Breakdown'
+          }
+        }
+      }
+    });
+  
+    </script> 
+{% endblock %}
+  
+
