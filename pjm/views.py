@@ -39,10 +39,7 @@ def hello3(request):
     return render(request, "hello3.html", locals())
 
 def listone(request):
-    try:
-        unit = ecoProject.objects.get(prj_id=4)     # read only 1 record
-    except:
-        errormessage = "(Read Error!)"
+    now = datetime.now()
     return render(request, "listone.html", locals())
 
 def listall(request):
