@@ -38,9 +38,9 @@ def hello3(request):
     now = datetime.now()
     return render(request, "hello3.html", locals())
 
-def listone(request):
+def dashboardview(request):
     now = datetime.now()
-    return render(request, "listone.html", locals())
+    return render(request, "dashboardview.html", locals())
 
 def listall(request):
     all_ecoprojects = ecoProject.objects.all().order_by('prj_id')

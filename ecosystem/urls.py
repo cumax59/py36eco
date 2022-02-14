@@ -23,7 +23,7 @@ urlpatterns = [
     # will run admin.site.urls this function, so need import admin
     path('', views.starterpage),
     path('hello3/', views.hello3),
-    path('listone/', views.listone),
+    path('dashboardview/', views.dashboardview),
     path('listall/', views.listall),
     path('createproject/', views.createproject),
     path('post/', views.post),

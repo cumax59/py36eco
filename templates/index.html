@@ -1,4 +1,4 @@
-{% extends "b-base-left.html" %}
+{% extends "base-left.html" %}
 {% load static %}
 
 {% block content %}
@@ -6,12 +6,12 @@
     <!-- Main content -->
 
   <section class="content">
-    <div class="fs-5 fw-semibold">Project Management </div>
+    <div class="fw-semibold h3 pt-4 pb-2 mb-3">Project Management </div>
     <div>
       <table class="table table-hover table-striped">
         <th>ID</th>
         <th>專案名稱</th>
-        <th>專案類別</th>
+        <!-- <th>專案類別</th> -->
         <th>專案描述</th>
         <th>立案日期</th>
         <th>開始日期</th>
@@ -23,7 +23,7 @@
           <tr>
             <td>{{ unit.prj_id }}</td>
             <td>{{ unit.prj_name }} </td>
-            <td>{{ unit.category }} </td>
+            <!-- <td>{{ unit.category }} </td> -->
             <td>{{ unit.description }} </td>
             <td>{{ unit.create_date }} </td>
             <td>{{ unit.start_date }} </td>
