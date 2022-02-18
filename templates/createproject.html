@@ -19,7 +19,8 @@
   <!-- Project create form start here... -->
   <div class="col-md-10 col-lg-10">
     <h5 class="fw-semibold h3 pt-4 pb-2 mb-3">Add a new project:</h5>
-    <form action="/post1/" method="POST" name="prjCreateForm" class="needs-validation" novalidate>
+
+    <form action="/createproject/" method="POST" name="prjCreateForm" class="needs-validation" novalidate>
       {% csrf_token %}
 
       <div class="row g-3">
@@ -35,10 +36,9 @@
         <div class="col-sm-3">
           <label for="cPriority" class="form-label">Priority</label>
           <select class="form-select" name="cPriority" id="id_cPriority" required>
-            <option value="">Choose...</option>
-            {% for priority in priority_all %}
-            <option value="{{ priority.key }}">{{ priority.value }}</option>
-            {% endfor %}
+            <option value="0">Highest</option>
+            <option value="1">Important</option>
+            <option value="2" selected="">Normal</option> 
           </select>
           <div class="invalid-feedback">
             Please assign priority.
@@ -65,16 +65,8 @@
             Please describe the project details.
           </div>
         </div>
- 
-        <div class="col-sm-6 col-md-4">
-          <label for="cCreateDate" class="form-label">Create Date</label>
-          <input type="date" class="form-control" name="cCreateDate" id="id_cCreateDate" placeholder="" required>
-          <div class="invalid-feedback">
-            Please specify project create date.
-          </div>
-        </div>
 
-        <div class="col-sm-6 col-md-4">
+        <div class="col-sm-6 col-md-3">
           <label for="cStartDate" class="form-label">Start Date</label>
           <input type="date" class="form-control" name="cStartDate" id="cStartDate" placeholder="" required>
           <div class="invalid-feedback">
@@ -82,7 +74,7 @@
           </div>
         </div>
 
-        <div class="col-sm-6 col-md-4">
+        <div class="col-sm-6 col-md-3">
           <label for="cEndDate" class="form-label">To Complete By</label>
           <input type="date" class="form-control" name="cEndDate" id="cEndDate" placeholder="" required>
           <div class="invalid-feedback">

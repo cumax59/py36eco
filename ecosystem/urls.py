@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from dailyreport.views import sayhello
 from pjm import views
 # hello3, listone, listall
 
@@ -24,8 +25,14 @@ urlpatterns = [
     path('', views.starterpage),
     path('hello3/', views.hello3),
     path('dashboardview/', views.dashboardview),
-    path('listall/', views.listall),
+    path('calendar/', views.calendarview),
+    path('projects/', views.projectview),
     path('createproject/', views.createproject),
+    path('editproject/', views.editproject),
+    path('testpasspara/', views.testpasspara),
     path('post/', views.post),
-    path('post1/', views.post1),
+    path('calendar/createEvent/', views.createEvent),
+    path('sayhello/', sayhello),
+    path('jsonview/', views.jsonview),
+    path('singlecard/', views.singlecard),
 ]

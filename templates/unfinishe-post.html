@@ -1,0 +1,430 @@
+{% extends "base-left.html" %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Main content -->
+
+  <section class="content">
+    <div class="fs-5 fw-semibold">Project Management </div>
+    
+    <form action="/post/" method="POST" name="form1">
+        {% csrf_token %}
+        <div> Please enter a message: <input type="text" name="prj_name" />
+            <input type="submit" value="Send" />
+        </div>
+    
+        <div> Data we received is: {{ mess }}</div>
+    </form>
+
+    <form method="post" id="ecoproject_form" novalidate=""><input type="hidden" name="csrfmiddlewaretoken" value="cChEHjJiSMlGCoSorJaw9wsKZLZZDCH0h7KLL7zJMzmtvsWcSEX3TXCi79wuVPqM">
+      <div>
+      
+
+
+        
+      
+    <fieldset class="module aligned ">
+
+      <div class="form-row field-prj_name">
+        <div>
+          <label class="required" for="id_prj_name">專案名稱:</label>
+            <input type="text" name="prj_name" value="Enzo" class="vTextField" maxlength="60" required="" id="id_prj_name">
+        </div>
+      </div>
+
+      <div class="form-row field-priority">
+        <div>
+          <label class="required" for="id_priority">專案級別:</label>
+            <select name="priority" id="id_priority">
+              <option value="0">Highest</option>
+              <option value="1">Important</option>
+              <option value="2" selected="">Normal</option>
+            </select>
+        </div>
+      </div>
+      
+      <div class="form-row field-category">
+        <div>
+          <label class="required" for="id_category">專案類別:</label>
+            <select name="category" id="id_category">
+              <option value="0" selected="">年度計畫</option>
+              <option value="1">人力精實</option>
+              <option value="2">測試自動化</option>
+              <option value="3">設備備品</option>
+              <option value="4">耗材降低</option>
+              <option value="5">包材管控</option>
+              <option value="6">Attrition降低</option>
+              <option value="7">製程改善</option>
+              <option value="8">效率提升</option>
+              <option value="9">UPH提升</option> 
+              <option value="10">品質提升</option>
+              <option value="11">自動化提升</option>
+              <option value="12">報表E化</option>
+              <option value="13">節能減排</option>
+              <option value="14">工程機電</option>
+              <option value="15">其他</option>
+            </select>
+        </div>
+      </div>
+          
+      <div class="form-row field-status">
+        <div>
+          <label class="required" for="id_status">專案狀態:</label>
+            <select name="status" id="id_status">
+              <option value="0" selected="">Ongoing</option>
+              <option value="1">Pending</option>
+              <option value="2">Closed</option>
+              <option value="3">Cancel</option>
+            </select>
+        </div>            
+      </div>
+          
+      <div class="form-row field-description">
+        <div>
+          <label class="required" for="id_description">專案描述:</label>
+            <input type="text" name="description" value="Enzo Main Project" class="vTextField" maxlength="60" required="" id="id_description">
+        </div>
+      </div>
+          
+      <div class="form-row field-current_stage">
+        <div>
+          <label class="required" for="id_current_stage">專案開展階段:</label>
+            <select name="current_stage" id="id_current_stage">
+              <option value="0">立案中</option>
+              <option value="1" selected="">需求分析</option>
+              <option value="2">待排配開發</option>
+              <option value="3">開發中</option>
+              <option value="4">驗證中</option>
+              <option value="5">已上線</option>
+              <option value="6">取消</option>
+            </select>
+        </div>
+      </div>
+          
+      <div class="form-row field-start_date">
+        <div>
+          <label for="id_start_date">開始日期:</label>
+            <input type="text" name="start_date" value="2022/01/22" class="vDateField" size="10" id="id_start_date">
+            <span class="datetimeshortcuts">&nbsp;<a href="#">今天</a>&nbsp;|&nbsp;<a href="#" id="calendarlink0">
+              <span class="date-icon" title="选择一个日期"></span></a></span>
+        </div>
+      </div>
+          
+      <div class="form-row field-end_date">
+        <div>
+          <label for="id_end_date">預計完成日期:</label>
+            <input type="text" name="end_date" value="2022/10/04" class="vDateField" size="10" id="id_end_date"><span class="datetimeshortcuts">&nbsp;<a href="#">今天</a>&nbsp;|&nbsp;<a href="#" id="calendarlink1"><span class="date-icon" title="选择一个日期"></span></a></span>
+        </div>
+      </div>
+          
+      <div class="form-row field-close_date">
+        <div>
+          <label for="id_close_date">結案日期:</label>
+            <input type="text" name="close_date" class="vDateField" size="10" id="id_close_date"><span class="datetimeshortcuts">&nbsp;<a href="#">今天</a>&nbsp;|&nbsp;<a href="#" id="calendarlink2"><span class="date-icon" title="选择一个日期"></span></a></span>
+        </div>
+      </div>
+          
+      <div class="form-row field-dpbg_site">
+        <div>
+          <label class="required" for="id_dpbg_site">廠區:</label>
+          <select name="dpbg_site" id="id_dpbg_site">
+            <option value="0">ALL</option>
+            <option value="1">GL</option>
+            <option value="2" selected="">ZZ PE1</option>
+            <option value="3">ZZ PE2</option>
+            <option value="4">ZZ SUR</option>
+            <option value="5">TY</option>
+            <option value="6">BZ</option>
+            <option value="7">TN</option>
+          </select>
+        </div>
+      </div>
+          
+      <div class="form-row field-pe_department">
+        <div>
+          <label class="required" for="id_pe_department">部門:</label>
+          <select name="pe_department" id="id_pe_department">
+            <option value="0">ALL</option>
+            <option value="1" selected="">SFA</option>
+            <option value="2">IE</option>
+            <option value="3">AAE</option>
+            <option value="4">AE</option>
+            <option value="5">ME</option>
+            <option value="6">AP</option>
+            <option value="7">RF</option>
+            <option value="8">Asset</option>
+            <option value="9">PDCA</option>
+            <option value="10">MEDD</option>
+            <option value="11">CSA</option>
+            <option value="12">Support</option>
+          </select>
+        </div>
+      </div>
+          
+      <div class="form-row field-prj_creator">
+        <div>
+          <label class="required" for="id_prj_creator">Prj creator:</label>
+          <div class="related-widget-wrapper">
+            <select name="prj_creator" required="" id="id_prj_creator">
+              <option value="1" selected="">cumax</option>
+              <option value="2">pjmuser</option>
+            </select>
+            <a class="related-widget-wrapper-link change-related" id="change_id_prj_creator" data-href-template="/admin/auth/user/__fk__/change/?_to_field=id&amp;_popup=1" title="更改选中的用户" href="/admin/auth/user/1/change/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-changelink.svg" alt="修改"></a><a class="related-widget-wrapper-link add-related" id="add_id_prj_creator" href="/admin/auth/user/add/?_to_field=id&amp;_popup=1" title="增加另一个 用户"><img src="/static/admin/img/icon-addlink.svg" alt="增加"></a><a class="related-widget-wrapper-link delete-related" id="delete_id_prj_creator" data-href-template="/admin/auth/user/__fk__/delete/?_to_field=id&amp;_popup=1" title="取消选中 用户" href="/admin/auth/user/1/delete/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-deletelink.svg" alt="删除"></a>
+          </div>
+        </div>
+      </div>
+          
+      <div class="form-row field-updates">
+        <div>
+          <label class="required" for="id_updates">Updates:</label>
+          <input type="number" name="updates" value="0" class="vBigIntegerField" min="0" max="9223372036854775807" required="" id="id_updates">
+        </div>
+      </div>
+          
+  </fieldset>
+       
+      <div class="submit-row">
+      <input type="submit" value="保存" class="default" name="_save">
+      <p class="deletelink-box"><a href="/admin/pjm/ecoproject/3/delete/" class="deletelink">删除</a></p>
+       <input type="submit" value="保存并增加另一个" name="_addanother">
+      <input type="submit" value="保存并继续编辑" name="_continue">
+      </div>
+      
+    <script id="django-admin-form-add-constants" src="/static/admin/js/change_form.js" async="">
+     </script>
+
+       <script id="django-admin-prepopulated-fields-constants" src="/static/admin/js/prepopulate_init.js" data-prepopulated-fields="[]">
+      </script>
+      
+      
+    
+
+
+
+
+
+
+
+
+
+  </section>
+
+
+
+
+  <div id="content" class="flex">
+        
+    <h1>选择 用户信息 来修改</h1>
+    
+<div id="content-main">
+
+    <ul class="object-tools">
+      
+        
+        <li>
+          
+          <a href="/admin/system/userprofile/add/" class="addlink">
+            增加 用户信息
+          </a>
+        </li>
+        
+      
+    </ul>
+
+
+<div class="module filtered" id="changelist">
+  
+
+<div id="toolbar"><form id="changelist-search" method="get">
+<div><!-- DIV needed for valid HTML -->
+<label for="searchbar"><img src="/static/admin/img/search.svg" alt="Search"></label>
+<input type="text" size="40" name="q" value="" id="searchbar" autofocus="">
+<input type="submit" value="搜索">
+
+
+</div>
+</form></div>
+
+
+  
+
+
+  
+    
+      <div id="changelist-filter">
+        <h2>过滤器</h2>
+        
+<h3> 以 职员状态</h3>
+<ul>
+
+<li class="selected">
+<a href="?" title="全部">全部</a></li>
+
+<li>
+<a href="?is_staff__exact=1" title="是">是</a></li>
+
+<li>
+<a href="?is_staff__exact=0" title="否">否</a></li>
+
+</ul>
+
+<h3> 以 超级用户状态</h3>
+<ul>
+
+<li class="selected">
+<a href="?" title="全部">全部</a></li>
+
+<li>
+<a href="?is_superuser__exact=1" title="是">是</a></li>
+
+<li>
+<a href="?is_superuser__exact=0" title="否">否</a></li>
+
+</ul>
+
+<h3> 以 有效</h3>
+<ul>
+
+<li class="selected">
+<a href="?" title="全部">全部</a></li>
+
+<li>
+<a href="?is_active__exact=1" title="是">是</a></li>
+
+<li>
+<a href="?is_active__exact=0" title="否">否</a></li>
+
+</ul>
+
+      </div>
+    
+  
+
+  <form id="changelist-form" method="post" novalidate=""><input type="hidden" name="csrfmiddlewaretoken" value="Jy2Nyk30LCr0rFvJkOMc8TE2BWyHcklpbz0hteHofvhKPx96yutHgUa8jO9D3cXf">
+  
+
+  
+      
+<div class="actions">
+<label>动作 <select name="action" required="">
+<option value="" selected="">---------</option>
+
+<option value="delete_selected">删除所选的 用户信息</option>
+
+</select></label><input type="hidden" name="select_across" value="0" class="select-across">
+<button type="submit" class="button" title="运行选中的动作" name="index" value="0">执行</button>
+
+    <span class="action-counter" data-actions-icnt="3">3 个中 0 个被选</span>
+    
+
+</div>
+
+      
+
+
+<div class="results">
+<table id="result_list">
+<thead>
+<tr>
+
+<th scope="col" class="action-checkbox-column">
+
+<div class="text"><span><input type="checkbox" id="action-toggle"></span></div>
+<div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-id">
+
+ 
+
+<div class="text"><a href="?o=1.3">ID</a></div>
+<div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-name">
+
+ 
+
+<div class="text"><a href="?o=2.3">姓名</a></div>
+<div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-username sorted ascending">
+
+ 
+   <div class="sortoptions">
+     <a class="sortremove" href="?o=" title="删除排序"></a>
+     
+     <a href="?o=-3" class="toggle ascending" title="正逆序切换"></a>
+   </div>
+ 
+
+<div class="text"><a href="?o=-3">用户名</a></div>
+<div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-mobile">
+
+ 
+
+<div class="text"><a href="?o=4.3">手机号码</a></div>
+<div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-email">
+
+ 
+
+<div class="text"><a href="?o=5.3">邮箱</a></div>
+<div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-gender">
+
+ 
+
+<div class="text"><a href="?o=6.3">性别</a></div>
+<div class="clear"></div>
+</th>
+</tr>
+</thead>
+<tbody>
+
+
+<tr class="row1"><td class="action-checkbox"><input type="checkbox" name="_selected_action" value="1" class="action-select"></td><th class="field-id"><a href="/admin/system/userprofile/1/change/">1</a></th><td class="field-name">管理员</td><td class="field-username">admin</td><td class="field-mobile">13951994649</td><td class="field-email">robbie_han@outlook.com</td><td class="field-gender">男</td></tr>
+
+
+<tr class="row2"><td class="action-checkbox"><input type="checkbox" name="_selected_action" value="6" class="action-select"></td><th class="field-id"><a href="/admin/system/userprofile/6/change/">6</a></th><td class="field-name">&nbsp;</td><td class="field-username">cumax</td><td class="field-mobile">&nbsp;</td><td class="field-email">cumax@test.com</td><td class="field-gender">男</td></tr>
+
+
+<tr class="row1"><td class="action-checkbox"><input type="checkbox" name="_selected_action" value="5" class="action-select"></td><th class="field-id"><a href="/admin/system/userprofile/5/change/">5</a></th><td class="field-name">郑璐</td><td class="field-username">zhenglu</td><td class="field-mobile">18651432008</td><td class="field-email">zhenglu@sandbox.com</td><td class="field-gender">男</td></tr>
+
+</tbody>
+</table>
+</div>
+
+
+      
+  
+  
+
+<p class="paginator">
+
+3 用户信息
+
+
+</p>
+
+  </form>
+</div>
+</div>
+
+    
+    <br class="clear">
+</div>
+
+
+
+
+    <!-- /.content -->
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

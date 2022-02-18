@@ -1,0 +1,221 @@
+{% extends "base-static.html" %}
+{% load static %}
+
+{% block css %}
+  <link href="{% static 'css/form-validation.css' %}" rel="stylesheet">
+
+<!--   <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+  <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+  <link rel="stylesheet" href="{% static 'plugins/bootstrap4/css/bootstrap-datetimepicker.min.css' %}"> -->
+
+{% endblock %}
+
+{% block main %}
+
+{% block content %}
+<!-- Main content -->
+
+<section class="content">
+ 
+  <div class="col-md-12 col-lg-12">
+    <br>
+    <!-- <h7 class="fw-semibold pt-5 mb-3">Project Details</h7> -->
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Projects</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Details</li>
+      </ol>
+    </nav>
+    
+    <hr class="my-2">
+    
+    
+   <!--  <div class="prj-name-title fw-bold fs-2 mb-3">{{a_project.prj_name}}</div>
+    <div class="fs-5 col-md-8">{{a_project.description}}</div> -->
+
+    <br>
+    <!-- Wrapper in a Card -->
+    <div class="row align-items-md-stretch">
+        
+        <div class="col-md-10 col-lg-2">
+          <div class="h-100 p-3 bg-light border" style="border-radius: 10px;">
+
+            <h3>{{a_project.prj_name}}</h3>
+            <p>{{a_project.description}}</p> 
+
+            <table class="table">
+              <tr>
+                <td style="text-align:center;" width="28px">Priority:</td>
+                <td class="priority_choices">{{a_project.priority}}</td>
+              </tr>
+              <tr>
+                <td style="text-align:center;">Category:</td>
+                <td class="category_choices">{{a_project.category}}</td>
+              </tr>
+              <tr>
+                <td style="text-align:center;">Status:</td>
+                <td class="status_choices">{{a_project.status}}</td>
+              </tr>
+              <tr>
+                <td style="text-align:center;">Stage:</td>
+                <td class="stage_choices">{{a_project.current_stage}}</td>
+              </tr>
+              <tr>
+                <td style="text-align:center;">FX Site:</td>
+                <td class="site_choices">{{a_project.dpbg_site }}</td>
+              </tr>
+              <tr>
+                <td style="text-align:center;">Department:</td>
+                <td class="department_choices">{{a_project.pe_department }}</td>
+              </tr>
+              <tr>
+                <td style="text-align:center;">Start Date:</td>
+                <td>{{a_project.start_date|date:"Y/m/d" }}</td>
+              </tr>
+              <tr>
+                <td style="text-align:center;">End Date:</td>
+                <td>{{a_project.end_date|date:"Y/m/d" }}</td>
+              </tr>
+              <tr>
+                <td style="text-align:center;">Close Date:</td>
+                <td>{{a_project.close_date|date:"Y/m/d" }}</td>
+              </tr>
+              <tr>
+                <td style="text-align:center;">Create Date:</td>
+                <td>{{a_project.create_date|date:"Y/m/d" }}</td>
+              </tr>
+              <tr>
+                <td style="text-align:center;">Creator:</td>
+                <td>{{a_project.prj_creator }} </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+              </tr>
+            </table>
+           
+            <ul class="bi icon-list" type="none">
+              <li> <img src="{% static 'svg/arrow-right-circle.svg' %}" alt="arrow-right-circle" width="16" height="16">
+                  <a href="../getting-started/introduction/">See sub-tasks</a> </li>
+              <li> <img src="{% static 'svg/arrow-right-circle.svg' %}" alt="arrow-right-circle" width="16" height="16">
+                  <a href="../getting-started/webpack/">Modify project</a> </li>
+              <li> <img src="{% static 'svg/arrow-right-circle.svg' %}" alt="arrow-right-circle" width="16" height="16">
+                  <a href="../getting-started/webpack/">Add updates </a> </li>
+                    <!-- <i class="fa fa-angle-left fs-4 pull-right"></i> -->
+                  </a> 
+            </ul>
+          </div>
+        </div>
+    </div>
+    <!-- Wrapper in a Card -->
+
+  </div>    
+  <!-- <div class="col-md-12 col-lg-12"> Above -->
+</section>
+
+<!-- /.content -->
+{% endblock %}
+<!-- End of Content Block -->
+{% endblock %}
+<!-- End of Main Block -->
+{% block javascripts %}
+<script src="{% static 'js/form-validation.js' %}"></script>
+
+<script type="text/javascript">
+  // Below construct a Javascript object to contains django ecoProject model
+  var j_Project = {
+    prj_id: 0,
+    prj_name: "",
+    priority: 0,
+    category: 0,
+    status: 0,
+    description: "",
+    stage: 0,
+    create_date: "",
+    start_date: "",
+    end_date: "",
+    close_date: "",
+    site: 0,
+    department: 0,
+    prj_creator: "",
+    updates: 0
+  };
+  // when porting to server, need to implement AJAX and check status === 200
+  // var position = document.getElementById('id_category');
+  var all_projects = JSON.parse('{{all_projects| safe }}');
+// var str_obj = JSON.stringify(passdata, undefined, 2); this is to get formatted string print out
+  // passdata is an JSON object 
+  // JSON objects first index to 1 obj, then use .key to get .value
+  var value_of_one_JSON = all_projects[7];
+  // key is "model", so output is value of "model" key
+  console.log("============");
+  console.log(value_of_one_JSON);
+  console.log("============");
+  console.log( all_projects.length);
+   //console.log(str_obj[1].fields);
+  //console.log( JSON.stringify(passdata) );
+  var temp_field = value_of_one_JSON.fields;
+  j_project = j_Project; 
+  j_project.prj_id = value_of_one_JSON.pk;
+  j_project.prj_name = temp_field.prj_name;
+  j_project.priority = temp_field.priority;
+  j_project.category = temp_field.category;
+  j_project.status = temp_field.status;
+  j_project.description = temp_field.description;
+  j_project.stage = temp_field.stage;
+  j_project.create_date = temp_field.create_date;
+  j_project.start_date = temp_field.start_date;
+  j_project.end_date = temp_field.end_date;
+  j_project.close_date = temp_field.close_date;
+  j_project.site = temp_field.site;
+  j_project.department = temp_field.department;
+  j_project.prj_creator = temp_field.prj_creator;
+  j_project.updates = temp_field.updates;
+
+
+
+  console.log(j_project.prj_id);
+  console.log(j_project.prj_name);
+  
+
+  var position = document.getElementsByClassName('category_choices');
+  if (position.length > 0) {
+    for(var i=0; i<position.length; i++) {
+      // console.log(position[i].textContent);
+      position[i].textContent = j_category_choices[Number(position[i].textContent)];
+    };
+  };
+  position = document.getElementsByClassName('site_choices');
+  if (position.length > 0) {
+    for(i=0; i<position.length; i++) {
+      position[i].textContent = j_site_choices[Number(position[i].textContent)];
+    };
+  };
+  position = document.getElementsByClassName('department_choices');
+  if (position.length > 0) {
+    for(i=0; i<position.length; i++) {
+      position[i].textContent = j_department_choices[Number(position[i].textContent)];
+    };
+  };
+  position = document.getElementsByClassName('priority_choices');
+  if (position.length > 0) {
+    for(i=0; i<position.length; i++) {
+      position[i].textContent = j_priority_choices[Number(position[i].textContent)];
+    };
+  };
+  position = document.getElementsByClassName('status_choices');
+  if (position.length > 0) {
+    for(i=0; i<position.length; i++) {
+      position[i].textContent = j_status_choices[Number(position[i].textContent)];
+    };
+  };
+  position = document.getElementsByClassName('stage_choices');
+  if (position.length > 0) {
+    for(i=0; i<position.length; i++) {
+      position[i].textContent = j_stage_choices[Number(position[i].textContent)];
+    };
+  };
+
+</script>
+
+{% endblock %}

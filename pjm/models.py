@@ -39,12 +39,12 @@ class ecoProject(models.Model):
     )
     CURRENT_STAGE_CHOICES = (    # verbose_name='專案開展階段'
         (0, '立案中'),
-        (1, '需求分析'),
-        (2, '待排配開發'),
-        (3, '開發中'),
-        (4, '驗證中'),
-        (5, '已上線'),
-        (6, '取消'),
+        (1, '需求分析'), 
+        (2, '待排配開發'), 
+        (3, '開發中'), 
+        (4, '驗證中'), 
+        (5, '已上線'), 
+        (6, '取消'),   
     )
     DPBG_SITE_CHOICES = (    # verbose_name='廠區'
         (0, 'ALL'),
@@ -76,7 +76,7 @@ class ecoProject(models.Model):
     priority = models.IntegerField(choices=PRIORITY_CHOICES, default=2, verbose_name='專案級別')
     category = models.IntegerField(choices=CATEGORY_CHOICES, default=0, verbose_name='專案類別')
     status = models.IntegerField(choices=STATUS_CHOICES, default=0, verbose_name='專案狀態')
-    description = models.CharField(max_length=60, default='', verbose_name='專案描述')
+    description = models.CharField(max_length=100, default='', verbose_name='專案描述')
     current_stage = models.IntegerField(choices=CURRENT_STAGE_CHOICES, default=0, verbose_name='專案開展階段')
     # Future: follow category type, should have accordingly project stage
     create_date = models.DateField(auto_now_add=True, blank=False, verbose_name='立案日期')
@@ -91,5 +91,14 @@ class ecoProject(models.Model):
 
     def __str__(self):
         return self.prj_name
+
+#  A List for storage of update messages. Message Queue for both  project and task usage
+class UpdatesQueue(models.Model):
+    update_id = models.AutoField(primary_key=True)
+    content = models.TextField(verbose_name='Status Updates')
+    next = models.PositiveBigIntegerField(blank=False, default=0)
+
+    def __str__(self):
+        return self.update_id
 
 

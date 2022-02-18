@@ -1,0 +1,95 @@
+{% extends "base-left.html" %}
+{% load static %}
+
+
+{% block content %}
+
+    <!-- Main content -->
+
+  <!-- <section class="content"> -->
+    <!-- <div class="row fs-5 fw-semibold pt-3 pb-3 justify-content-between">  -->
+  <div class="row justify-content-between pt-4 pb-4">  
+      <div class="col-4 fs-4 fw-bold">
+        All Projects
+      </div>
+      <div class="col-2">
+        <a href="/createproject" class="btn btn-secondary btn-sm pull-right">
+          新增專案</a>
+      </div>     
+  </div>
+
+
+    <div>
+      <table class="table table-hover table-striped">
+        <th>ID</th>
+        <th>專案名稱</th>
+        <th>專案類別</th>
+        <th>專案描述</th>
+        <th>立案日期</th>
+        <th>開始日期</th>
+        <th>廠區</th>
+        <th>部門</th>
+        <th>創建人</th>
+        <tbody>
+          {% for unit in all_ecoprojects %}
+          <tr class="prj-view-row">
+            <td>{{ unit.prj_id }}</td>
+            <td>{{ unit.prj_name }} </td>
+            <td class="category_choices">{{ unit.category }} </td>
+            <td>{{ unit.description }} </td>
+            <td>{{ unit.create_date }} </td>
+            <td>{{ unit.start_date }} </td>
+            <td class="site_choices">{{ unit.dpbg_site }} </td>
+            <td class="department_choices">{{ unit.pe_department }} </td>
+            <td>{{ unit.prj_creator }} </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div> 
+    
+    <hr class="my-4">
+
+  
+
+  <!-- </section> -->
+  
+
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+  var list = document.getElementsByClassName('prj-view-row');
+  for(var i=0; i<list.length; i++){
+    list[i].index=i;
+    list[i].onclick = 
+    function () {
+      alert(this.index);
+    }
+  }  
+</script>  
+<script type="text/javascript">
+  // var position = document.getElementById('id_category');
+  var position = document.getElementsByClassName('category_choices');
+  if (position.length > 0) {
+    for(var i=0; i<position.length; i++) {
+      // console.log(position[i].textContent);
+      position[i].textContent = j_category_choices[Number(position[i].textContent)];
+    };
+  };
+  position = document.getElementsByClassName('site_choices');
+  if (position.length > 0) {
+    for(i=0; i<position.length; i++) {
+      position[i].textContent = j_site_choices[Number(position[i].textContent)];
+    };
+  };
+  position = document.getElementsByClassName('department_choices');
+  if (position.length > 0) {
+    for(i=0; i<position.length; i++) {
+      position[i].textContent = j_department_choices[Number(position[i].textContent)];
+    };
+  };
+
+</script>
+
+{% endblock %}
