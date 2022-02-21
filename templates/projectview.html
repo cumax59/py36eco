@@ -1,35 +1,37 @@
 {% extends "base-left.html" %}
 {% load static %}
 
-
+<!-- Below main page main content, without sidebar and header -->
 {% block content %}
+  <section class="content">
 
-    <!-- Main content -->
-
-  <!-- <section class="content"> -->
     <!-- <div class="row fs-5 fw-semibold pt-3 pb-3 justify-content-between">  -->
   <div class="row justify-content-between pt-4 pb-4">  
-      <div class="col-4 fs-4 fw-bold">
+      <div class="col-10 fs-4 fw-bold">
         All Projects
       </div>
-      <div class="col-2">
-        <a href="/createproject" class="btn btn-secondary btn-sm pull-right">
+      <div class="col-1 ps-1"> 
+        <a href="/createproject" class="btn btn-secondary btn-sm pull-right" style="width: 100px;">
           新增專案</a>
-      </div>     
+      </div>
+      <div class="col-1 ps-1">
+        <a href="/cardprojectview" class="btn btn-secondary btn-sm pull-right" style="width: 100px;">
+          Card View</a>
+      </div>          
   </div>
 
-
     <div>
-      <table class="table table-hover table-striped">
-        <th>ID</th>
-        <th>專案名稱</th>
-        <th>專案類別</th>
-        <th>專案描述</th>
-        <th>立案日期</th>
-        <th>開始日期</th>
-        <th>廠區</th>
-        <th>部門</th>
-        <th>創建人</th>
+      <table class="h7 table table-hover table-striped table100">
+        <th class="bg-blue text-white">ID</th>
+        <th class="bg-blue text-white">專案名稱</th>
+        <th class="bg-blue text-white">專案類別</th>
+        <th class="bg-blue text-white">專案描述</th>
+        <th class="bg-blue text-white">開始日期</th>
+        <th class="bg-blue text-white">預計結束日期</th>
+        <th class="bg-blue text-white">廠區</th>
+        <th class="bg-blue text-white">部門</th>
+        <th class="bg-blue text-white">創建人</th>
+        <th class="bg-blue text-white">更新數</th>
         <tbody>
           {% for unit in all_ecoprojects %}
           <tr class="prj-view-row">
@@ -37,37 +39,23 @@
             <td>{{ unit.prj_name }} </td>
             <td class="category_choices">{{ unit.category }} </td>
             <td>{{ unit.description }} </td>
-            <td>{{ unit.create_date }} </td>
-            <td>{{ unit.start_date }} </td>
+            <td>{{ unit.start_date|date:"Y/m/d" }} </td>
+            <td>{{ unit.end_date|date:"Y/m/d" }} </td>
             <td class="site_choices">{{ unit.dpbg_site }} </td>
             <td class="department_choices">{{ unit.pe_department }} </td>
             <td>{{ unit.prj_creator }} </td>
+            <td>{{ unit.updates }} </td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
     </div> 
     
-    <hr class="my-4">
-
-  
-
-  <!-- </section> -->
-  
-
+  </section>
 {% endblock %}
+<!-- Above main page main content, without sidebar and header -->
 
 {% block javascripts %}
-<script type="text/javascript">
-  var list = document.getElementsByClassName('prj-view-row');
-  for(var i=0; i<list.length; i++){
-    list[i].index=i;
-    list[i].onclick = 
-    function () {
-      alert(this.index);
-    }
-  }  
-</script>  
 <script type="text/javascript">
   // var position = document.getElementById('id_category');
   var position = document.getElementsByClassName('category_choices');
@@ -91,5 +79,22 @@
   };
 
 </script>
+<script type="text/javascript">
+  var list = document.getElementsByClassName('prj-view-row');
+  for(var i=0; i<list.length; i++){
+    list[i].index=i;
+    list[i].onclick = 
+    function () {
+     // alert(this.index);
+      var href = 'http://127.0.0.1:8000/singlecardview/';
+      href += this.index;
+      console.log(href);
+      window.open(href,'_self');
+    }
+  }  
+
+   //   window.open('http://127.0.0.1:8000/testpasspara','_self');
+
+</script>  
 
 {% endblock %}

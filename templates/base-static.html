@@ -18,13 +18,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Bootstrap core CSS -->
     <link href="{% static 'dist513/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'plugins/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'dist/css/AdminLTE.min.css' %}" rel="stylesheet">
+    <link href="{% static 'dist/css/skins/skin-blue.min.css' %}" rel="stylesheet">
+    <link href="{% static 'js/plugins/layer/skin/layer.css' %}" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
     <link href="{% static 'css/headers.css' %}" rel="stylesheet">
-    <link href="{% static 'js/plugins/layer/skin/layer.css' %}" rel="stylesheet">
+    <link href="{% static 'css/myecosystem.css' %}" rel="stylesheet">
     <script src="{% static 'js/myglobal.js' %}"></script>
+
     {% block css %}
-    
     {% endblock %}
     <style>
       .bd-placeholder-img {
@@ -40,27 +43,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
           font-size: 3.5rem;
         }
       }
-      fieldset {
-      background: rgba(255,255,255,.3); 
-border-color: rgba(255,255,255,.6); 
-border-style: solid; 
-border-width: 2px; 
--moz-border-radius: 5px; 
--webkit-border-radius: 5px; 
--khtml-border-radius: 5px; 
-border-radius: 5px; 
-line-height: 30px; 
-list-style: none; 
-padding: 5px 10px;
-margin-bottom: 2px; 
-    }
-    fieldset legend {
-      color:#302A2A; 
-  font: bold 16px/2 Verdana, Geneva, sans-serif; 
-  font-weight: bold; 
-  text-align: left; 
-  text-shadow: 2px 2px 2px rgb(88, 126, 156); 
-    }
     </style>
   </head>
 
@@ -93,7 +75,7 @@ margin-bottom: 2px;
 
       <!-- Logo -->
     <header class="navbar navbar-dark sticky-top bg-blue flex-md-nowrap p-0 shadow text-white">
-      <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
+      <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/">
         <svg class="bi me-1" width="30" height="30"><use xlink:href="#person-workspace"/></svg>
         <span class="fs-5 fw-semibold">EcoSystem</span>
       </a>
@@ -105,7 +87,7 @@ margin-bottom: 2px;
         <div class="d-flex align-items-center">
           <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
             <li>
-              <a href="#" class="fs-6 nav-link text-white">
+              <a href="/" class="fs-6 nav-link text-white">
                 Home
               </a>
             </li>

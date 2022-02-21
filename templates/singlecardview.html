@@ -1,0 +1,236 @@
+{% extends "base-left.html" %}
+{% load static %}
+
+{% block css %}
+  <link href="{% static 'css/form-validation.css' %}" rel="stylesheet">
+
+<!--   <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+  <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+  <link rel="stylesheet" href="{% static 'plugins/bootstrap4/css/bootstrap-datetimepicker.min.css' %}"> -->
+ <style>
+   .headline-trim {
+     text-overflow: ellipsis;
+     white-space: nowrap;
+     overflow: hidden;
+   }
+   .mytd-padding {
+     text-align: start; 
+     padding: 1 1 1 1;
+   }
+ </style>
+
+{% endblock %}
+{% block content %}
+
+<!-- Main content -->
+
+<section class="content">
+  <br>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">EcoSystem</a></li>
+        <li class="breadcrumb-item"><a href="/projects">Projects</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Details</li>
+        <li class="breadcrumb-item active" aria-current="page">{{ one_prj.prj_name }}</li>
+      </ol>
+    </nav>
+
+    <!-- <hr class="my-2"> -->
+  <div id="container" class="row mb-2 align-items-center"> 
+
+    <!-- Wrapper in a Card -->
+    <div id="pjm-single-card" class="col-md-4">
+      <div class="h-100 p-3 bg-light border" style="border-radius: 10px;"> 
+        <div class="prj-name headline-trim fw-semibold fs-5 mb-3"></div>
+        <div class="prj-desc"></div> <hr>
+        <table class="prj-table">
+          <tr>
+            <td class="mytd-padding" style="width: 100px;"></td>
+            <td class="mytd-padding"></td>
+          </tr>
+          <tr>
+            <td class="mytd-padding" style="width: 100px;"></td>
+            <td class="mytd-padding"></td>
+          </tr>
+          <tr>
+            <td class="mytd-padding" style="width: 100px;"></td>
+            <td class="mytd-padding"></td>
+          </tr>
+          <tr>
+            <td class="mytd-padding" style="width: 100px;"></td>
+            <td class="mytd-padding"></td>
+          </tr>
+          <tr>
+            <td class="mytd-padding" style="width: 100px;"></td>
+            <td class="mytd-padding"></td>
+          </tr>
+          <tr>
+            <td class="mytd-padding" style="width: 100px;"></td>
+            <td class="mytd-padding"></td>
+          </tr>
+          <tr>
+            <td class="mytd-padding" style="width: 100px;"></td>
+            <td class="mytd-padding"></td>
+          </tr>
+          <tr>
+            <td class="mytd-padding" style="width: 100px;"></td>
+            <td class="mytd-padding"></td>
+          </tr>
+          <tr>
+            <td class="mytd-padding" style="width: 100px;"></td>
+            <td class="mytd-padding"></td>
+          </tr>
+          <tr>
+            <td class="mytd-padding" style="width: 100px;"></td>
+            <td class="mytd-padding"></td>
+          </tr>
+          <tr>
+            <td class="mytd-padding" style="width: 100px;"></td>
+            <td class="mytd-padding"></td>
+          </tr>
+        </table><hr>
+      <!-- output update items -->
+        <ul class="update-item" style="padding-left:0; text: float;" type="none">
+          {% for unit in prj_updates reversed %}
+            <li>{{ unit.content }}</li>
+            <p><em> Added @ {{ unit.updatetime }}</em></p> <hr>
+          {% endfor %}
+        </ul>
+      <div class="action-item d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+        <button id="btnEdit" style="width: 80px;" class="me-sm-3 btn btn-secondary" type="button">Modify</button>
+        <button id="btnAdd" style="width: 156px;" class="px-4 me-sm-3 btn btn-secondary" type="button">Add Updates</button>
+      </div>
+    </div> 
+  </div>
+    <!-- Wrapper in a Card -->
+
+  </div>    
+  <!-- <div class="col-md-12 col-lg-12"> Above now id container -->
+    
+      <form id="updateform" method="POST" name="added1" class="needs-validation" novalidate>
+      {% csrf_token %}
+      <div class="col-md-4">
+        <p>專案進度更新 <br>
+          <textarea name="added2" class="col-12 h-100 p-3 bg-light border" rows="4" style="border-radius: 10px;"></textarea>
+        </p>
+          <!-- The actual key name being referred to when in POST is the name="added2"-->
+        <hr class="my-3">
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+          <button id="btnSave" style="width: 90px;" class="px-4 me-sm-3 btn btn-primary" type="submit">Save</button>
+          <button id="btnCancel" style="width: 90px;" class="px-4 me-sm-3 btn btn-outline-secondary" type="reset">Reset</button> 
+        </div>
+      </div>
+      </form>
+    
+</section>
+
+<!-- /.content -->
+
+{% endblock %}
+<!-- End of Content Block -->
+
+<!-- End of Main Block *** if not extend base-left template then need to add main block-->
+{% block javascripts %}
+<script src="{% static 'js/form-validation.js' %}"></script>
+<script src="{% static 'js/mycardview.js' %}"></script>
+
+<script type="text/javascript">
+  //console.log(all_projects);
+  //console.log(json_projects);
+  //var all_projects = JSON.parse('{{all_projects| safe }}');
+  // when porting to server, need to implement AJAX and check status === 200
+  // var position = document.getElementById('id_category');
+  // var str_obj = JSON.stringify(passdata, undefined, 2); this is to get formatted string print out
+  // passdata is an JSON object 
+  // JSON objects first index to 1 obj, then use .key to get .value
+  // Below construct a Javascript object to contains django ecoProject model 
+$(function() {              // When the DOM is ready, execute below codes
+  var row_name_list = [
+    "Priority",
+    "Status",
+    "Stage",
+    "Category",
+    "FX Site",
+    "Department",
+    "Start Date",
+    "End Date",
+    "Close Date",
+    "Create Date",
+    "DRI"    
+  ];
+  var temp_str;
+  //{{ one_prj.prj_name }}
+  var row_name_length = row_name_list.length;
+  var update_num = 0;
+  update_num = {{ one_prj.updates }};
+  console.log("update num is: " + update_num);
+  //var content_html = "";
+  //content_html = loadEmptyCard(row_name_length, update_num); 
+  //$('#container').html(content_html);
+
+  temp_str = '{{ one_prj.prj_name| safe }}';
+  console.log(temp_str);
+  $('.prj-name').append(temp_str);
+  temp_str = '{{ one_prj.description| safe }}';
+  $('.prj-desc').append(temp_str);
+  var position = $('.mytd-padding');
+  position[0].append(row_name_list[0]);
+  temp_str = j_priority_choices['{{ one_prj.priority }}'];
+  position[1].append(temp_str);
+
+  position[2].append(row_name_list[1]);
+  temp_str = j_status_choices['{{ one_prj.status| safe }}'];
+  position[3].append(temp_str);
+
+  position[4].append(row_name_list[2]);
+  temp_str = j_stage_choices['{{ one_prj.current_stage| safe }}'];
+  position[5].append(temp_str);
+
+  position[6].append(row_name_list[3]);
+  temp_str = j_category_choices['{{ one_prj.category| safe }}'];
+  position[7].append(temp_str);
+
+  position[8].append(row_name_list[4]);
+  temp_str = j_site_choices['{{ one_prj.dpbg_site| safe }}'];
+  position[9].append(temp_str);
+
+  position[10].append(row_name_list[5]);
+  temp_str = j_department_choices['{{ one_prj.pe_department| safe }}'];
+  position[11].append(temp_str);
+
+  position[12].append(row_name_list[6]);
+  temp_str = '{{ one_prj.start_date| safe }}';
+  position[13].append(temp_str);
+
+  position[14].append(row_name_list[7]);
+  temp_str = '{{ one_prj.end_date| safe }}';
+  position[15].append(temp_str);
+
+  position[16].append(row_name_list[8]);
+  temp_str = '{{ one_prj.close_date| safe }}';
+  position[17].append(temp_str);
+
+  position[18].append(row_name_list[9]);
+  temp_str = '{{ one_prj.create_date| safe }}';
+  position[19].append(temp_str);
+
+  position[20].append(row_name_list[10]);
+  temp_str = '{{ one_prj.prj_creator| safe }}';
+  position[21].append(temp_str);
+
+  $('#updateform').hide();
+});
+
+$(function() {
+  $('#btnAdd').click(function(){
+    $('#updateform').show();
+   //$('.action-item').after("Hello This is the place to add");
+  });
+});
+//$(function() { 
+//  $('#addupdate').click(function(){
+//    $('#updateform').show();
+//});
+</script>
+
+{% endblock %}

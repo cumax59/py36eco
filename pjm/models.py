@@ -95,10 +95,13 @@ class ecoProject(models.Model):
 #  A List for storage of update messages. Message Queue for both  project and task usage
 class UpdatesQueue(models.Model):
     update_id = models.AutoField(primary_key=True)
-    content = models.TextField(verbose_name='Status Updates')
-    next = models.PositiveBigIntegerField(blank=False, default=0)
+    parent = models.PositiveBigIntegerField(null=True, blank=True)
+    content = models.TextField(max_length=240, default="", verbose_name='Status Updates')
+    updatetime = models.DateTimeField(auto_now_add=True, blank=False)
+    # editor = models.ForeignKey(User, on_delete=models.DO_NOTHING, default='', verbose_name='作者')
+    # next = models.PositiveBigIntegerField(null=True, blank=True)
 
-    def __str__(self):
-        return self.update_id
+    def __int__(self):
+        return self.parent
 
 

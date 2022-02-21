@@ -1,0 +1,19 @@
+.table100 {
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #ebebeb;
+    box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  }
+
+  .table100 th {
+    font-family: Lato;
+    font-size: 16px;
+    background-color: rgb(10,60,200);
+  } 
+
+ /*  element could be applied to above table100
+ display: inline-flex;
+  padding: .1875rem .5rem;
+  margin-top: .125rem;
+  margin-left: 1.25rem;
+  text-decoration: none; */

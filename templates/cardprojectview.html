@@ -1,4 +1,4 @@
-{% extends "base-static.html" %}
+{% extends "base-left.html" %}
 {% load static %}
 
 {% block css %}
@@ -16,22 +16,21 @@
  </style>
 
 {% endblock %}
-
-{% block main %}
-
 {% block content %}
+
 <!-- Main content -->
 
 <section class="content">
   <br>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Projects</a></li>
+        <li class="breadcrumb-item"><a href="/">EcoSystem</a></li>
+        <li class="breadcrumb-item"><a href="/projects">Projects</a></li>
         <li class="breadcrumb-item active" aria-current="page">Details</li>
       </ol>
     </nav>
     <!-- <hr class="my-2"> -->
-  <div id="container"> 
+  <div id="container" class="row mb-2 align-items-center"> 
     <!-- Wrapper in a Card -->
     <!-- Wrapper in a Card -->
   </div>    
@@ -39,94 +38,28 @@
 </section>
 
 <!-- /.content -->
+
 {% endblock %}
 <!-- End of Content Block -->
-{% endblock %}
-<!-- End of Main Block -->
+
+<!-- End of Main Block *** if not extend base-left template then need to add main block-->
 {% block javascripts %}
 <script src="{% static 'js/form-validation.js' %}"></script>
+<script src="{% static 'js/mycardview.js' %}"></script>
 
 <script type="text/javascript">
-  var all_projects = JSON.parse('{{all_projects| safe }}');
-  // when porting to server, need to implement AJAX and check status === 200
-  // var position = document.getElementById('id_category');
-  // var str_obj = JSON.stringify(passdata, undefined, 2); this is to get formatted string print out
-  // passdata is an JSON object 
-  // JSON objects first index to 1 obj, then use .key to get .value
-  // Below construct a Javascript object to contains django ecoProject model
-  var j_Project = {
-    prj_id: 0,
-    prj_name: "",
-    priority: 0,
-    category: 0,
-    status: 0,
-    description: "",
-    stage: 0,
-    create_date: "",
-    start_date: "",
-    end_date: "",
-    close_date: "",
-    site: 0,
-    department: 0,
-    prj_creator: "",
-    updates: 0
-  };
-  function loadOneCard(json_unit) {
-    var temp_field = json_unit.fields;
-    var j_project = j_Project; 
-    j_project.prj_id = json_unit.pk;
-    j_project.prj_name = temp_field.prj_name;
-    j_project.priority = j_priority_choices[temp_field.priority];
-    j_project.category = j_category_choices[temp_field.category];
-    j_project.status = j_status_choices[temp_field.status];
-    j_project.description = temp_field.description;
-    j_project.stage = j_stage_choices[temp_field.current_stage];
-    j_project.create_date = temp_field.create_date;
-    j_project.start_date = temp_field.start_date;
-    j_project.end_date = temp_field.end_date;
-    j_project.close_date = temp_field.close_date;
-    j_project.site = j_site_choices[temp_field.dpbg_site];
-    j_project.department = j_department_choices[temp_field.pe_department];
-    j_project.prj_creator = temp_field.prj_creator;
-    j_project.updates = temp_field.updates;
-    var card_html ="";
-    card_html = '<div id="pjm-single-card" class="row align-items-md-stretch">';
-    // card_html += '<div class="col-md-10 col-lg-3">';
-    card_html += '<div class="h-100 p-3 bg-light border col-md-6 col-lg-4" style="border-radius: 10px;">';
-    card_html += '  <div class="prj-name headline-trim fw-bold fs-4 mb-3">';
-    card_html += j_project.prj_name + '</div>';
-    card_html += '  <div class="prj-desc">' + j_project.description + '</div> <hr>';
-    card_html += '<ul style="padding-left:0; text: float;" type="none">';
-    card_html += '<li>Priority:' + j_project.priority + '</li>';
-    card_html += '<li>Status:' + j_project.status + '</li>';
-    card_html += '<li>Category:' + j_project.category + '</li>';
-    card_html += '<li>Stage:' + j_project.stage + '</li>';
-    card_html += '<li>FX Site:' + j_project.site + '</li>';
-    card_html += '<li>Department:' + j_project.department + '</li>';
-    card_html += '<li>Start Date:' + j_project.start_date + '</li>';
-    card_html += '<li>To finish by:' + j_project.end_date + '</li>';
-    card_html += '<li>Close Date:' + j_project.close_date + '</li>';
-    card_html += '<li class="prj-dri">DRI:' + j_project.prj_creator + '</li> </ul> <hr>';
-    card_html += '<ul class="action-item" style="padding-left:1;">';
-    card_html += '<li><a href="tasks/">See sub-tasks</a> </li>';
-    card_html += '<li><a href="modify/">Modify project</a> </li>';
-    card_html += '<li><a href="add-updates/">Add updates </a> </li> </ul>';
-    card_html += '</div> </div> <br>';
-    return card_html;
-  }
+var all_projects = JSON.parse('{{all_projects| safe }}');
 $(function() {              // When the DOM is ready, execute below codes
-  var one_json = all_projects[7];
+  //var one_json = all_projects[7];
   // var target = $('#container');
   // target.append("Hello I did it!");
   var one_project = j_Project;
   var content_html = "";
   for(var i=0; i<all_projects.length; i++) {
-    content_html = loadOneCard(all_projects[i]);
-    $('#container').after(content_html);
-
+    content_html += loadOneCard(all_projects[i]);
   };
+  $('#container').html(content_html);
 });
-
 </script>
 
 {% endblock %}

@@ -1,0 +1,157 @@
+{% extends "base-left.html" %}
+{% load static %}
+
+{% block css %}
+  <link href="{% static 'css/form-validation.css' %}" rel="stylesheet">
+
+<!--   <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+  <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+  <link rel="stylesheet" href="{% static 'plugins/bootstrap4/css/bootstrap-datetimepicker.min.css' %}"> -->
+ <style>
+   .headline-trim {
+     text-overflow: ellipsis;
+     white-space: nowrap;
+     overflow: hidden;
+   }
+   .mytd-padding {
+     text-align: center; 
+     padding: 1 1 1 1;
+   }
+ </style>
+
+{% endblock %}
+{% block content %}
+
+<!-- Main content -->
+
+<section class="content">
+  <br>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">EcoSystem</a></li>
+        <li class="breadcrumb-item"><a href="/projects">Projects</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Details</li>
+      </ol>
+    </nav>
+    <!-- <hr class="my-2"> -->
+  <div id="container" class="row mb-2 align-items-center"> 
+    <!-- Wrapper in a Card -->
+    <!-- Wrapper in a Card -->
+  </div>
+  
+  <form id="updateform" action="/addupdates/" method="POST" name="added1" class="needs-validation" novalidate>
+    {% csrf_token %}
+
+    <div class="row g-3">
+
+      <div class="col-md-5">
+        <div class="prj-name headline-trim fw-bold fs-4 mb-3">
+          Placeholder for Project Name
+        </div>
+        <p>專案進度更新 <br>
+          <textarea name="added2" class="col-12" rows="4"></textarea>
+        </p>
+        <!-- The actual key name being referred to when in POST is the name="added2"-->
+        <hr class="my-3">
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+          <button id="btnSave" style="width: 90px;" class="px-4 me-sm-3 btn btn-primary" type="submit">Save</button>
+          <button id="btnCancel" style="width: 90px;" class="px-4 me-sm-3 btn btn-outline-secondary" type="reset">Reset</button> 
+          <!-- <button class="w-100 btn btn-primary btn-lg" type="submit">Checkout</button> -->
+        </div>
+      </div>
+    </div>
+  </form>
+
+</section>
+
+<!-- /.content -->
+
+{% endblock %}
+<!-- End of Content Block -->
+
+<!-- End of Main Block *** if not extend base-left template then need to add main block-->
+{% block javascripts %}
+<script src="{% static 'js/form-validation.js' %}"></script>
+
+<script type="text/javascript">
+  var all_projects = JSON.parse('{{all_projects| safe }}');
+  // when porting to server, need to implement AJAX and check status === 200
+  // var position = document.getElementById('id_category');
+  // var str_obj = JSON.stringify(passdata, undefined, 2); this is to get formatted string print out
+  // passdata is an JSON object 
+  // JSON objects first index to 1 obj, then use .key to get .value
+  // Below construct a Javascript object to contains django ecoProject model
+  var j_Project = {
+    prj_id: 0,
+    prj_name: "",
+    priority: 0,
+    category: 0,
+    status: 0,
+    description: "",
+    stage: 0,
+    create_date: "",
+    start_date: "",
+    end_date: "",
+    close_date: "",
+    site: 0,
+    department: 0,
+    prj_creator: "",
+    updates: 0
+  };
+  function loadOneCard(json_unit) {
+    var temp_field = json_unit.fields;
+    var j_project = j_Project; 
+    j_project.prj_id = json_unit.pk;
+    j_project.prj_name = temp_field.prj_name;
+    j_project.priority = j_priority_choices[temp_field.priority];
+    j_project.category = j_category_choices[temp_field.category];
+    j_project.status = j_status_choices[temp_field.status];
+    j_project.description = temp_field.description;
+    j_project.stage = j_stage_choices[temp_field.current_stage];
+    j_project.create_date = temp_field.create_date;
+    j_project.start_date = temp_field.start_date;
+    j_project.end_date = temp_field.end_date;
+    j_project.close_date = temp_field.close_date;
+    j_project.site = j_site_choices[temp_field.dpbg_site];
+    j_project.department = j_department_choices[temp_field.pe_department];
+    j_project.prj_creator = temp_field.prj_creator;
+    j_project.updates = temp_field.updates;
+    var card_html ="";
+    card_html = '<div id="pjm-single-card" class="col-md-5">';
+    card_html += '<div class="h-100 p-3 bg-light border" style="border-radius: 10px;">';
+    //card_html += '<div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">'; 
+    card_html += '  <div class="prj-name headline-trim fw-bold fs-4 mb-3">';
+    card_html += j_project.prj_name + '</div>';
+    card_html += '  <div class="prj-desc">' + j_project.description + '</div> <hr>';
+    card_html += '<ul style="padding-left:0; text: float;" type="none">';
+    card_html += '<li>Priority:' + j_project.priority + '</li>';
+    card_html += '<li>Status:' + j_project.status + '</li>';
+    card_html += '<li>Category:' + j_project.category + '</li>';
+    card_html += '<li>Stage:' + j_project.stage + '</li>';
+    card_html += '<li>FX Site:' + j_project.site + '</li>';
+    card_html += '<li>Department:' + j_project.department + '</li>';
+    card_html += '<li>Start Date:' + j_project.start_date + '</li>';
+    card_html += '<li>To finish by:' + j_project.end_date + '</li>';
+    card_html += '<li>Close Date:' + j_project.close_date + '</li>';
+    card_html += '<li class="prj-dri">DRI:' + j_project.prj_creator + '</li> </ul> <hr>';
+    card_html += '<ul class="action-item" style="padding-left:1;">';
+    card_html += '<li><a href="/tasks">See sub-tasks</a> </li>';
+    card_html += '<li><a href="/modify">Modify project</a> </li>';
+    card_html += '<li><a href="/addupdates">Add updates </a> </li> </ul>';
+    card_html += '</div> </div> <br>';
+    return card_html;
+  }
+$(function() {              // When the DOM is ready, execute below codes
+  // var target = $('#container');
+  // target.append("Hello I did it!");
+  var content_html = "";
+  var select_index = localStorage.getItem('index');
+  content_html = loadOneCard(all_projects[select_index]);
+  $('#container').after(content_html);
+
+  
+});
+
+</script>
+
+{% endblock %}

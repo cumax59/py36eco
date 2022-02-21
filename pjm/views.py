@@ -1,3 +1,4 @@
+from re import U
 from django.shortcuts import render
 import json
 from django.core import serializers
@@ -5,25 +6,10 @@ from django.core import serializers
 from django.http import HttpResponse
 from datetime import datetime
 from pjm.forms import ProjectForm
-from pjm.models import ecoProject
+from pjm.models import UpdatesQueue, ecoProject
 from django.contrib.auth import get_user_model
 
 user_model = get_user_model()
-choices_dict = dict()
-
-priority_all = [{'key': i[0], 'value': i[1]} for i in ecoProject.PRIORITY_CHOICES]
-category_all = [{'key': i[0], 'value': i[1]} for i in ecoProject.CATEGORY_CHOICES]
-status_all = [{'key': i[0], 'value': i[1]} for i in ecoProject.STATUS_CHOICES]
-stage_all = [{'key': i[0], 'value': i[1]} for i in ecoProject.CURRENT_STAGE_CHOICES]
-site_all = [{'key': i[0], 'value': i[1]} for i in ecoProject.DPBG_SITE_CHOICES]
-department_all = [{'key': i[0], 'value': i[1]} for i in ecoProject.PE_DEPARTMENT_CHOICES]
-choices_dict['priority_all'] = priority_all
-choices_dict['category_all'] = category_all
-choices_dict['status_all'] = status_all
-choices_dict['stage_all'] = stage_all
-choices_dict['site_all'] = site_all
-choices_dict['department_all'] = department_all
-
 """
 def sayhello(request):
     return HttpResponse("Hello Django!")
@@ -34,10 +20,40 @@ def starterpage(request):
 """
 def starterpage(request):
     all_ecoprojects = ecoProject.objects.all().order_by('prj_id') 
-    print(all_ecoprojects)
-    return render(request, "index.html", locals())
+    return render(request, "projectview.html", locals())
 
-def testpasspara(request):
+def projectview(request):
+    # projectview still take Django QuerySet to get all_projects info
+    all_ecoprojects = ecoProject.objects.all().order_by('prj_id')
+    return render(request, "projectview.html", locals())
+
+def singlecardview(request, index):
+    all_ecoprojects = ecoProject.objects.all().order_by('prj_id')
+    one_prj = all_ecoprojects[int(index)]
+    prj_updates = UpdatesQueue.objects.filter(parent=one_prj.prj_id)    
+    if request.method == "GET":
+        print("Index been chosen: ", index)
+        print("Prj Updates content: ", prj_updates)
+        return render(request, "singlecardview.html", locals())
+    if request.method == "POST":
+        ret = request.POST
+        update_content = ret['added2']
+        working_id = one_prj.prj_id
+        if len(update_content) > 3:    # too few words, reject to add 
+            one_update = UpdatesQueue.objects.create(parent=working_id, content=update_content)
+            one_update.save()
+            one_prj = ecoProject.objects.get(prj_id=working_id)
+            one_prj.updates = one_prj.updates + 1
+            one_prj.save()
+            all_ecoprojects = ecoProject.objects.all().order_by('prj_id') #sync records from database
+            one_prj = all_ecoprojects[int(index)]
+            prj_updates = UpdatesQueue.objects.filter(parent=working_id)
+            print("update list:")
+            print(prj_updates)   
+        return render(request, "singlecardview.html", locals())
+
+def cardprojectview(request):
+    # this testing JSON data to pass all_project info
     all_ecoprojects = ecoProject.objects.all().order_by('prj_id')
     # choices_dict['all_ecoprojects'] = all_ecoprojects 
     json_all_projects = serializers.serialize("json", all_ecoprojects)
@@ -62,15 +78,6 @@ def dashboardview(request):
 def calendarview(request):
     now = datetime.now()
     return render(request, "calendarview.html", locals())
-
-def projectview(request):
-    all_ecoprojects = ecoProject.objects.all().order_by('prj_id')
-    choices_dict['all_ecoprojects'] = all_ecoprojects 
-    print(choices_dict)
-    print("Category All")
-    one_dict = choices_dict['category_all'][1]
-    print(one_dict['value'])
-    return render(request, "projectview.html", choices_dict)
 
 def post(request):
     if request.method == "POST":
@@ -125,6 +132,19 @@ def editproject(request):
 def createEvent(request):
     return HttpResponse("Hello Django!")
 
-def singlecard(request):
-    return render(request, "singlecard.html")
+def addupdates(request):
+    all_ecoprojects = ecoProject.objects.all().order_by('prj_id')
+    # choices_dict['all_ecoprojects'] = all_ecoprojects 
+    json_all_projects = serializers.serialize("json", all_ecoprojects)
+    if request.method == "GET":
+        return render(request, "addupdates.html", {'all_projects': json_all_projects})
+    if request.method == "POST":
+        ret = request.POST['added2']
+        print("The update text is:")
+        print(ret)
+        ret.strip()
+        print(ret)
+        #update_content = ret['addupdates']
+        #print(update_content)
+    return render(request, "addupdates.html", {'all_projects': json_all_projects})
 
