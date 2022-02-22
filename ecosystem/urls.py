@@ -15,25 +15,25 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from dailyreport.views import sayhello
+from dailyreport.views import sayhello, calendarview, createEvent
 from pjm import views
 # hello3, listone, listall
 
 urlpatterns = [
     path('admin/', admin.site.urls), 
     # will run admin.site.urls this function, so need import admin
+    path('hello3/', views.hello3),
     path('', views.starterpage),
     path('projects/', views.projectview),
-    path('singlecardview/<str:index>', views.singlecardview),
-    path('hello3/', views.hello3),
+    path('singlecardview/<str:index>', views.singlecardview),  
     path('dashboardview/', views.dashboardview),
-    path('calendar/', views.calendarview),  
     path('createproject/', views.createproject),
     path('editproject/', views.editproject),
     path('cardprojectview/', views.cardprojectview),
-    path('post/', views.post),
-    path('calendar/createEvent/', views.createEvent),
-    path('sayhello/', sayhello),
     path('jsonview/', views.jsonview),
     path('addupdates/', views.addupdates),
+    path('post/', views.post),
+    path('sayhello/', sayhello),
+    path('calendar/', calendarview), 
+    path('calendar/create/', createEvent),
 ]

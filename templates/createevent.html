@@ -1,0 +1,116 @@
+{% extends "base-left.html" %}
+{% load static %}
+
+{% block css %}
+<link href="{% static 'css/form-validation.css' %}" rel="stylesheet">
+<link href="{% static 'plugins/fullcalendar/fullcalendar.min.css' %}" rel="stylesheet"/>
+<link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+<link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-datetimepicker.min.css' %}">
+<link rel="stylesheet" href="{% static 'dist/css/myself.css' %}">
+
+
+{% endblock %}
+
+{% block content %}
+<!-- Title -->
+<div class="col-md-10 col-lg-8">
+  <h5 class="fw-semibold h3 pt-4 pb-2 mb-3">Add a new event:</h5>
+  <hr class="my-2">
+    <form action="/calendar/create/" method="POST" name="addForm" class="needs-validation" novalidate>
+      {% csrf_token %}
+      <div class="row g-3">
+
+        <div class="col-sm-3">
+          <label for="eCategory" class="form-label">Category</label>
+            <select class="form-select" name="eCategory" id="id_eCategory" required>
+              <option value="">Choose...</option>
+              {% for category in category_all %}
+              <option value="{{ category.key }}">{{ category.value }}</option>
+              {% endfor %}
+            </select>
+            <div class="invalid-feedback">
+              Please specify event category.
+            </div>
+        </div>
+
+        <div class="col-12">
+            <label for="eDescription" class="form-label">Description</label>
+            <input type="text" class="form-control" name="eventContent" id="eDescription" placeholder="" value="" required>
+            <div class="invalid-feedback">
+              Description can't be empty.
+            </div>
+        </div>
+
+        <div class="form-group has-feedback">
+            <label class="col-sm-2 col-md-2 control-label">開始時間</label>
+            <div class="col-sm-3 col-md-3">
+                <input type="text" class="form-control pull-right form_datetime" name="start_time" value="{{ start_time | date:'Y-m-d H:i' }}" readonly />
+            </div>
+            <label class="col-sm-2 col-md-2 control-label">結束時間</label>
+            <div class="col-sm-3 col-md-3">
+                <input type="text" class="form-control pull-right form_datetime" name="end_time" value="{{ end_time | date:'Y-m-d H:i' }}" readonly />
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+          <label for="eAttention" class="form-label">Attention</label>
+          <select class="form-control select2" name="eAttention" multiple="multiple" data-placeholder="Attention">
+            <option value="">Choose...</option>
+              {% for attention in user_all %}
+            <option value="{{ attention.username }}">{{ attention.username }}</option>
+              {% endfor %}
+          </select>
+          <div class="invalid-feedback">
+            Please add users who would pay attention on this event.
+          </div>
+        </div>
+
+        <hr class="my-2">
+      
+        <div class="box-footer ">
+          <div class="row span7 text-center ">
+            <button type="button" id="btnCancel" class="btn btn-default margin-right ">Reset</button>
+            <button type="submit" id="btnSave" class="btn btn-info margin-right ">Save</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+</div>
+
+<!-- /.content -->
+{% endblock %}
+
+{% block javascripts %}
+<script src="{% static 'js/form-validation.js' %}"></script>
+<script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
+<script type="text/javascript">
+        /*点取消刷新新页面*/
+    $("#btnCancel").click(function () {
+        window.location.reload();
+    });
+
+/*input 时间输入选择*/
+        $(".form_datetime").datetimepicker({
+            language: 'zh',
+            //minView: 'month',
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            forceParse: 0,
+            //format: 'yyyy-mm-dd hh:ss'
+        }).on('changeDate', function (ev) {
+            $(this).datetimepicker('hide');
+        });
+
+        // select2
+        $(function () {
+            //Initialize Select2 Elements
+            $(".select2").select2();
+        });
+</script>
+{% endblock %}

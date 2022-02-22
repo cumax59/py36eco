@@ -44,13 +44,17 @@
             <td class="site_choices">{{ unit.dpbg_site }} </td>
             <td class="department_choices">{{ unit.pe_department }} </td>
             <td>{{ unit.prj_creator }} </td>
-            <td>{{ unit.updates }} </td>
+            <td> 
+              <button type="button" class="btn btn-success btn-sm">
+                Updates <span class="badge bg-secondary">{{ unit.updates }}</span>
+              </button>
+            </td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
     </div> 
-    
+
   </section>
 {% endblock %}
 <!-- Above main page main content, without sidebar and header -->

@@ -30,7 +30,7 @@
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">EcoSystem</a></li>
         <li class="breadcrumb-item"><a href="/projects">Projects</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Details</li>
+        <li class="breadcrumb-item">Details</li>
         <li class="breadcrumb-item active" aria-current="page">{{ one_prj.prj_name }}</li>
       </ol>
     </nav>
@@ -41,7 +41,7 @@
     <!-- Wrapper in a Card -->
     <div id="pjm-single-card" class="col-md-4">
       <div class="h-100 p-3 bg-light border" style="border-radius: 10px;"> 
-        <div class="prj-name headline-trim fw-semibold fs-5 mb-3"></div>
+        <div class="prj-name headline-trim fw-bold fs-5 mb-3"></div>
         <div class="prj-desc"></div> <hr>
         <table class="prj-table">
           <tr>
@@ -89,17 +89,22 @@
             <td class="mytd-padding"></td>
           </tr>
         </table><hr>
-      <!-- output update items -->
+          <!-- output update items -->
+        <div class="action-item d-grid gap-2 d-sm-flex justify-content-sm-center mb-2">
+          <button id="btnEdit" style="width: 80px;" class="me-sm-3 btn btn-secondary btn-sm" type="button">Modify</button>
+          <button id="btnAdd" style="width: 156px;" class="me-sm-3 btn btn-secondary btn-sm" type="button">Add Updates</button>
+        </div> 
+        {% if one_prj.updates > 0 %}
+        <hr>
+        <p class="fs-6 fw-bold">Updates:</p>
         <ul class="update-item" style="padding-left:0; text: float;" type="none">
+        {% endif %}
           {% for unit in prj_updates reversed %}
-            <li>{{ unit.content }}</li>
-            <p><em> Added @ {{ unit.updatetime }}</em></p> <hr>
+            <li class="fs-6 mb-1"><em>{{ unit.content }}</em></li>
+            <p class="fs-7 text-opacity-50">Added@{{ unit.updatetime }}</p>
           {% endfor %}
         </ul>
-      <div class="action-item d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
-        <button id="btnEdit" style="width: 80px;" class="me-sm-3 btn btn-secondary" type="button">Modify</button>
-        <button id="btnAdd" style="width: 156px;" class="px-4 me-sm-3 btn btn-secondary" type="button">Add Updates</button>
-      </div>
+      
     </div> 
   </div>
     <!-- Wrapper in a Card -->

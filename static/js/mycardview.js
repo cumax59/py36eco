@@ -98,5 +98,19 @@
     card_html += ' </div></div> </div>';
     return card_html;
   }
-
+  function loadEmptyEventCard() {
+    var card_html = "";
+    // var update_num = Number(num);
+    // console.log("Start of the loadEmpthEventCard: " + event_id);
+    // output table header first
+    card_html = '<div id="event-single-card">';
+    // above try to add class col-12
+    card_html += '<div class="h-100 p-3 bg-light border" style="border-radius: 10px;">'; 
+    card_html += '  <div class="event-name headline-trim fw-semibold fs-5 mb-3"></div>';
+    card_html += '  <div class="event-category">Category:</div> <hr>';
+    card_html += '  <div class="event-start">Start:</div>';
+    card_html += '  <div class="event-end">End:</div>';
+    card_html += '</div></div>';
+    return card_html;
+  }
 // </script>

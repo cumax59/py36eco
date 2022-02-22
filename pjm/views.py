@@ -11,9 +11,6 @@ from django.contrib.auth import get_user_model
 
 user_model = get_user_model()
 """
-def sayhello(request):
-    return HttpResponse("Hello Django!")
-
 def starterpage(request):
     now = datetime.now()
     return render(request, 'index.html', locals())
@@ -75,10 +72,6 @@ def dashboardview(request):
     now = datetime.now()
     return render(request, "dashboardview.html", locals())
 
-def calendarview(request):
-    now = datetime.now()
-    return render(request, "calendarview.html", locals())
-
 def post(request):
     if request.method == "POST":
         mess = request.POST['prj_name']
@@ -128,9 +121,6 @@ def editproject(request):
     # choices_dict['all_ecoprojects'] = all_ecoprojects 
     print(a_project)
     return render(request, "editproject.html", locals())
-
-def createEvent(request):
-    return HttpResponse("Hello Django!")
 
 def addupdates(request):
     all_ecoprojects = ecoProject.objects.all().order_by('prj_id')

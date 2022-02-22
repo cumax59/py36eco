@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'pjm',      # Max: add pjm module
+    'dailyreport', # Max: add dailyreport app
 ]
 
 MIDDLEWARE = [
