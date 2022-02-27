@@ -1,4 +1,4 @@
-{% extends "base-left.html" %}
+{% extends "base-static.html" %}
 {% load static %}
 
 <!-- Below main page main content, without sidebar and header -->
@@ -6,8 +6,8 @@
   <section class="content">
 
     <!-- <div class="row fs-5 fw-semibold pt-3 pb-3 justify-content-between">  -->
-  <div class="row justify-content-between pt-4 pb-4">  
-      <div class="col-10 fs-4 fw-bold">
+  <div class="row justify-content-start py-4">  
+      <div class="col-10 fs-4 fw-semibold">
         All Projects
       </div>
       <div class="col-1 ps-1"> 
@@ -96,9 +96,14 @@
       window.open(href,'_self');
     }
   }  
-
    //   window.open('http://127.0.0.1:8000/testpasspara','_self');
 
-</script>  
+</script>
+<script type="text/javascript">
+  $(function () {
+    $('#DailyReport').addClass('active');
+    $('#MyReport').addClass('active');
+  });
+</script>
 
 {% endblock %}

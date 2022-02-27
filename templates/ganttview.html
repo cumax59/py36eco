@@ -1,0 +1,204 @@
+{% extends "base-static.html" %}
+{% load static %}
+
+{% block css %}
+<!-- <link rel="stylesheet" href="css/gantt.css" /> -->
+<!-- <link rel="stylesheet" href="css/style.css" /> -->
+<!-- <script src="js/jquery-1.7.min.js"></script> -->
+<!-- <script src="js/jquery.fn.gantt.js"></script> -->
+<!-- <link rel="stylesheet" href="css/gantt.css" /> -->
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+<!-- <link href="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css" rel="stylesheet" type="text/css"> -->
+<style type="text/css">
+    body {
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        padding: 0 0 50px 0;
+    }
+    h1 {
+        margin: 40px 0 20px 0;
+    }
+    h2 {
+        font-size: 1.5em;
+        padding-bottom: 3px;
+        border-bottom: 1px solid #DDD;
+        margin-top: 50px;
+        margin-bottom: 25px;
+    }
+    table th:first-child {
+        width: 150px;
+    }
+    .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out
+    }
+    @keyframes octocat-wave {
+        0%, 100% {
+            transform: rotate(0)
+        }
+        20%, 60% {
+            transform: rotate(-25deg)
+        }
+        40%, 80% {
+            transform: rotate(10deg)
+        }
+    }
+    @media (max-width:500px) {
+        .github-corner:hover .octo-arm {
+            animation: none
+        }
+        .github-corner .octo-arm {
+            animation: octocat-wave 560ms ease-in-out
+        }
+    }
+</style>
+
+
+{% endblock %}
+
+{% block content %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">EcoSystem</a></li>
+      <li class="breadcrumb-item"><a href="/projects">Projects</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Gantt Charts</li>
+    </ol>
+  </nav>
+
+    <div class="container-fluid">
+        <div class="gantt"></div>
+    </div>
+    
+{% endblock %}
+
+{% block javascripts %}
+<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+<!-- <script src="{% static 'chartjs371/chart.js' %}"></script> -->
+<!-- <script src="{% static 'js/dashboard.js' %}"></script> -->
+<!-- <script src="{% static 'js/ganttjs/jquery.min.js' %}"></script> -->
+<script src="{% static 'js/ganttjs/jquery.fn.gantt.js' %}"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+
+<script>
+    $(function() {
+        "use strict";
+
+        var demoSource = [{
+            name: "CG Link",
+            desc: "Analysis",
+            values: [{
+                from: 1320192000000,
+                to: 1322401600000,
+                label: "Requirement Gathering",
+                customClass: "ganttRed"
+            }]
+        },{
+            desc: "Scoping",
+            values: [{
+                from: 1322611200000,
+                to: 1323302400000,
+                label: "Scoping",
+                customClass: "ganttRed"
+            }]
+        },{
+            name: "HSG Ling",
+            desc: "Development",
+            values: [{
+                from: 1323802400000,
+                to: 1325685200000,
+                label: "Development",
+                customClass: "ganttGreen"
+            }]
+        },{
+            name: " ",
+            desc: "Showcasing",
+            values: [{
+                from: 1325685200000,
+                to: 1325695200000,
+                label: "Showcasing",
+                customClass: "ganttBlue"
+            }]
+        },{
+            name: "Zonda Maing",
+            desc: "Development",
+            values: [{
+                from: 1325695200000,
+                to: 1328785200000,
+                label: "Development",
+                customClass: "ganttGreen"
+            }]
+        },{
+            desc: "Showcasing",
+            values: [{
+                from: 1328785200000,
+                to: 1328905200000,
+                label: "Showcasing",
+                customClass: "ganttBlue"
+            }]
+        },{
+            name: "全員自動化",
+            desc: "Training",
+            values: [{
+                from: 1330011200000,
+                to: 1336611200000,
+                label: "Training",
+                customClass: "ganttOrange"
+            }]
+        },{
+            desc: "Deployment",
+            values: [{
+                from: 1336611200000,
+                to: 1338711200000,
+                label: "Deployment",
+                customClass: "ganttOrange"
+            }]
+        },{
+            desc: "Warranty Period",
+            values: [{
+                from: 1336611200000,
+                to: 1349711200000,
+                label: "Warranty Period",
+                customClass: "ganttOrange"
+            }]
+        }];
+
+        // shifts dates closer to Date.now()
+        var offset = new Date().setHours(0, 0, 0, 0) -
+            new Date(demoSource[0].values[0].from).setDate(35);
+        for (var i = 0, len = demoSource.length, value; i < len; i++) {
+            value = demoSource[i].values[0];
+            value.from += offset;
+            value.to += offset;
+        }
+
+        $(".gantt").gantt({
+            source: demoSource,
+            navigate: "scroll",
+            scale: "days",
+            maxScale: "months",
+            minScale: "days",
+            itemsPerPage: 10,
+            scrollToToday: false,
+            useCookie: false,
+            onItemClick: function(data) {
+                alert("Item clicked - show some details");
+            },
+            onAddClick: function(dt, rowId) {
+                alert("Empty space clicked - add an item!");
+            },
+            onRender: function() {
+                if (window.console && typeof console.log === "function") {
+                    console.log("chart rendered");
+                }
+            }
+        });
+
+
+    });
+</script>
+{% endblock %}
+  
+

@@ -1,4 +1,4 @@
-{% extends "base-left.html" %}
+{% extends "base-static.html" %}
 {% load static %}
 
 {% block css %}
@@ -39,7 +39,7 @@
   <div id="container" class="row mb-2 align-items-center"> 
 
     <!-- Wrapper in a Card -->
-    <div id="pjm-single-card" class="col-md-4">
+    <div id="pjm-single-card" class="col-md-10 col-lg-4">
       <div class="h-100 p-3 bg-light border" style="border-radius: 10px;"> 
         <div class="prj-name headline-trim fw-bold fs-5 mb-3"></div>
         <div class="prj-desc"></div> <hr>
@@ -96,23 +96,26 @@
         </div> 
         {% if one_prj.updates > 0 %}
         <hr>
-        <p class="fs-6 fw-bold">Updates:</p>
-        <ul class="update-item" style="padding-left:0; text: float;" type="none">
+        <div class="fs-6 fw-bold">Status Updates:</div>
+        
+        <div class="package-status">
+          <div class="status-box">
+            <ul class="status-list update-item">
+              {% for unit in prj_updates reversed %}
+              <li>
+                <div class="status-content-before">{{ unit.content }}</div>
+                <div class="status-time-before">Added@{{ unit.updatetime }}</div>
+                <div class="status-line"></div>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
         {% endif %}
-          {% for unit in prj_updates reversed %}
-            <li class="fs-6 mb-1"><em>{{ unit.content }}</em></li>
-            <p class="fs-7 text-opacity-50">Added@{{ unit.updatetime }}</p>
-          {% endfor %}
-        </ul>
-      
-    </div> 
-  </div>
+      </div> <!-- border radius-->
+    </div> <!-- pjm single card-->
     <!-- Wrapper in a Card -->
-
-  </div>    
-  <!-- <div class="col-md-12 col-lg-12"> Above now id container -->
-    
-      <form id="updateform" method="POST" name="added1" class="needs-validation" novalidate>
+    <form id="updateform" method="POST" name="added1" class="needs-validation" novalidate>
       {% csrf_token %}
       <div class="col-md-4">
         <p>專案進度更新 <br>
@@ -125,7 +128,12 @@
           <button id="btnCancel" style="width: 90px;" class="px-4 me-sm-3 btn btn-outline-secondary" type="reset">Reset</button> 
         </div>
       </div>
-      </form>
+    </form>
+
+  </div>    
+  <!-- <div class="col-md-12 col-lg-12"> Above now id container -->
+    
+      
     
 </section>
 

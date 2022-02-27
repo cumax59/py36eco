@@ -138,3 +138,7 @@ def addupdates(request):
         #print(update_content)
     return render(request, "addupdates.html", {'all_projects': json_all_projects})
 
+def ganttview(request):
+    now = datetime.now()
+    return render(request, "ganttview.html", locals())
+

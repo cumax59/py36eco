@@ -30,6 +30,7 @@ urlpatterns = [
     path('createproject/', views.createproject),
     path('editproject/', views.editproject),
     path('cardprojectview/', views.cardprojectview),
+    path('ganttview/', views.ganttview),
     path('jsonview/', views.jsonview),
     path('addupdates/', views.addupdates),
     path('post/', views.post),

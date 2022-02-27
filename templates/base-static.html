@@ -13,17 +13,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta name="generator" content="Hugo 0.88.1"> -->
     <title>PE EcoSystem</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
+    <!-- <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/dashboard/"> -->
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'dist513/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'plugins/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
-    <link href="{% static 'dist/css/AdminLTE.min.css' %}" rel="stylesheet">
-    <link href="{% static 'dist/css/skins/skin-blue.min.css' %}" rel="stylesheet">
+    <!-- <link href="{% static 'dist/css/AdminLTE.min.css' %}" rel="stylesheet"> -->
+    <!-- <link href="{% static 'dist/css/skins/skin-blue.min.css' %}" rel="stylesheet"> -->
     <link href="{% static 'js/plugins/layer/skin/layer.css' %}" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
     <link href="{% static 'css/headers.css' %}" rel="stylesheet">
+    <link href="{% static 'css/jquery-ui.css' %}" rel="stylesheet">  <!-- for JQuery UI 1.12.1-->
     <link href="{% static 'css/myecosystem.css' %}" rel="stylesheet">
     <script src="{% static 'js/myglobal.js' %}"></script>
 
@@ -74,52 +75,132 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Logo icon above svg format -->
 
       <!-- Logo -->
-    <header class="navbar navbar-dark sticky-top bg-blue flex-md-nowrap p-0 shadow text-white">
-      <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/">
-        <svg class="bi me-1" width="30" height="30"><use xlink:href="#person-workspace"/></svg>
-        <span class="fs-5 fw-semibold">EcoSystem</span>
-      </a>
+    <!-- <div class="px-1 py-1 bg-primary text-white">
+      <header>
+      <div class="container-fluid">
+        <div class="d-flex flex-wrap align-items-center justify-content-between justify-content-lg-between">
+          <a href="/" class="d-flex align-items-center my-lg-0 me-lg-auto text-white text-decoration-none">
+            <svg class="bi me-2" width="44" height="36" role="img"><use xlink:href="#person-workspace"/></svg>
+            <span class="fs-4 fw-bold">EcoSystem</span>
+          </a>
 
-      <button class="navbar-toggler d-md-none collapsed justify-content-start" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon" width="30" height="30"></span>
-      </button> 
-
-        <div class="d-flex align-items-center">
-          <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+          <ul class="nav col-lg-auto my-1 justify-content-between my-md-0 text-small">
             <li>
-              <a href="/" class="fs-6 nav-link text-white">
+              <a href="/" class="nav-link text-white">
+                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#home"/></svg>
                 Home
               </a>
             </li>
             <li>
-              <a href="#" class="fs-6 nav-link text-white">
+              <a href="/dashboardview" class="nav-link text-white">
+                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#speedometer2"/></svg>
                 Dashboard
               </a>
             </li>
             <li>
-              <a href="#" class="fs-6 nav-link text-white">
+              <a href="/calendar" class="nav-link text-white">
+                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#table"/></svg>
                 Calendar
               </a>
             </li>
             <li>
-              <a href="#" class="fs-6 nav-link text-white">
+              <a href="/projects" class="nav-link text-white">
+                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>
                 Projects
               </a>
             </li>
-          </ul> <!-- end of center navbar menu item-->
-        </div>    <!--class="d-flex align-items-center"-->
+            <li>
+              <a href="/admin" class="nav-link text-white">
+                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#people-circle"/></svg>
+                Accounts
+              </a>
+            </li>
+          </ul>
+          <button class="navbar-toggler d-md-none collapsed justify-content-start" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon" width="30" height="30"></span>
+          </button>
+        </div>
+      </div>
+      </header>
+    </div> -->
+    <nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-primary" aria-label="main navbar fixed">
+      <div class="container-fluid">
+        <a class="navbar text-white" style="text-decoration: none;" href="/">
+          <svg class="bi me-1" width="42" height="36" role="img"><use xlink:href="#person-workspace"/></svg>
+          <span class="fs-4 fw-bold">EcoSystem</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="ms-4 collapse navbar-collapse" id="navbarsExample03">
+          <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+            <li class="nav-item px-2">
+              <!-- <a class="nav-link active" aria-current="page" href="#">Home</a> -->
+              <a href="/" class="nav-link active text-white">
+                <svg class="bi d-block mx-auto mb-1" width="20" height="20"><use xlink:href="#home"/></svg>
+                Home
+              </a>
+            </li>
 
-        <!-- <input class="form-control form-control-light" type="text" placeholder="Search" aria-label="Search"> -->
-        
-    </header>
+            <li class="nav-item px-2">
+              <!-- <a class="nav-link" href="#">Link</a> -->
+              <a href="/dashboardview" class="nav-link text-white">
+                <svg class="bi d-block mx-auto mb-1" width="20" height="20"><use xlink:href="#speedometer2"/></svg>
+                Dashboard
+              </a>
+            </li>
 
-  <div class="container-fluid">
+            <li class="nav-item px-2">
+              <!-- <a class="nav-link">Disabled</a> -->
+              <a href="/calendar" class="nav-link text-white">
+                <svg class="bi d-block mx-auto mb-1" width="20" height="20"><use xlink:href="#table"/></svg>
+                Calendar
+              </a>
+            </li>
+
+
+            <li class="nav-item px-2 dropdown">
+              <!-- <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a> -->
+              <a href="#" class="nav-link dropdown-toggle text-white" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">
+                <svg class="bi d-block mx-auto mb-1" width="20" height="20"><use xlink:href="#grid"/></svg>
+                Projects
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdown03">
+                <li><a class="dropdown-item" href="/projects">Project List</a></li>
+                <li><a class="dropdown-item" href="/createproject">Create Project</a></li>
+                <li><a class="dropdown-item" href="/ganttview">Gantt Charts</a></li>
+              </ul>
+            </li>
+            <li class="nav-item px-2 dropdown">
+              <!-- <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a> -->
+              <a href="/admin" class="nav-link dropdown-toggle text-white" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">
+                <svg class="bi d-block mx-auto mb-1" width="20" height="20"><use xlink:href="#people-circle"/></svg>
+                Accounts
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdown04">
+                <li><a class="dropdown-item" href="#">Create users</a></li>
+                <li><a class="dropdown-item" href="#">Logout</a></li>
+              </ul>
+            </li>
+          </ul>
+          <!-- <form class="d-flex"> -->
+            <!-- <input class="form-control" type="text" placeholder="Search" aria-label="Search"> -->
+          <!-- </form> -->
+        </div>
+      </div>
+    </nav>
+
+  <div class="container-fluid mt-5 pt-4">
     <div class="row">
     
-  {% block main %}
+  <!-- <main class="col-md-9 ms-sm-auto col-lg-10 px-md-2"> -->
+    
+  {% block content %}
 
 
-  {% endblock %} 
+  {% endblock %}
+  <!-- </main> -->
 
     </div>
   </div>
@@ -127,7 +208,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Put JavaScript here -->
   <script src="{% static 'dist513/js/bootstrap.bundle.min.js' %}"></script>
   <script src="{% static 'plugins/jQuery/jquery-2.2.3.min.js' %}"></script>
-  <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+  <!-- <script src="{% static 'gantteditor/jquery-3.1.1.min.js' %}"></script> -->
+  <!-- <script src="{% static 'gantteditor/jquery-ui.min.js' %}"></script> -->
   
 <!-- <script src="{% static 'js/plugins/layer/layer.js' %}"></script> -->
   <!-- <script src="{% static 'dist513/js/dashboard.js' %}"></script> -->
