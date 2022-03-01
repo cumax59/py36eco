@@ -49,6 +49,66 @@ def singlecardview(request, index):
             print(prj_updates)   
         return render(request, "singlecardview.html", locals())
 
+def singleprojecttabs(request, index):
+    all_ecoprojects = ecoProject.objects.all().order_by('prj_id')
+    one_prj = all_ecoprojects[int(index)]
+    prj_updates = UpdatesQueue.objects.filter(parent=one_prj.prj_id) 
+    user_all = user_model.objects.exclude(username__in=['admin', request.user.username])
+    priority_all = [{'key': i[0], 'value': i[1]} for i in ecoProject.PRIORITY_CHOICES]
+    category_all = [{'key': i[0], 'value': i[1]} for i in ecoProject.CATEGORY_CHOICES]
+    status_all = [{'key': i[0], 'value': i[1]} for i in ecoProject.STATUS_CHOICES]
+    site_all = [{'key': i[0], 'value': i[1]} for i in ecoProject.DPBG_SITE_CHOICES]
+    department_all = [{'key': i[0], 'value': i[1]} for i in ecoProject.PE_DEPARTMENT_CHOICES]
+    stage_all = [{'key': i[0], 'value': i[1]} for i in ecoProject.CURRENT_STAGE_CHOICES]
+    current_user = user_all[1]  
+    if request.method == "GET":
+        print("Index been chosen: ", index)
+        print("Prj Updates content: ", prj_updates)
+        return render(request, "singleprojecttabs.html", locals())
+    if request.method == "POST":
+        ret = request.POST
+        whichForm = ret['cFormType']
+        if whichForm == "addUpdates":
+            print("Adding updates========")
+            update_content = ret['added2']
+            working_id = one_prj.prj_id
+            if len(update_content) > 3:    # too few words, reject to add 
+                one_update = UpdatesQueue.objects.create(parent=working_id, content=update_content)
+                one_update.save()
+                one_prj = ecoProject.objects.get(prj_id=working_id)
+                one_prj.updates = one_prj.updates + 1
+                one_prj.save()
+                all_ecoprojects = ecoProject.objects.all().order_by('prj_id') #sync records from database
+                one_prj = all_ecoprojects[int(index)]
+                prj_updates = UpdatesQueue.objects.filter(parent=working_id)
+                print("update list:")
+                print(prj_updates)   
+            return render(request, "singleprojecttabs.html", locals())
+        elif whichForm == "editPrj":
+            print("Modifying the project=========")
+            working_id = one_prj.prj_id
+            unit = ecoProject.objects.get(prj_id=working_id)
+            unit.prj_name = ret['cPrjName']
+            unit.priority = ret['cPriority']
+            unit.category = ret['cCategory']
+            unit.status = ret['cStatus']
+            unit.description = ret['cDescription']
+            unit.current_stage = ret['cStage']
+            unit.start_date = ret['cStartDate']
+            unit.end_date = ret['cEndDate']
+            # unit.close_date = ret['cEndDate']
+             # temporarily set same as end date
+            unit.dpbg_site = ret['cSite']
+            unit.pe_department = ret['cDepartment']
+            # in modify does not change prj creator
+            # unit.prj_creator = current_user
+            unit.save()
+            all_ecoprojects = ecoProject.objects.all().order_by('prj_id')
+            one_prj = all_ecoprojects[int(index)] 
+        else:
+            print("somethin wrong with form selection========") 
+        return render(request, "singleprojecttabs.html", locals())
+
 def cardprojectview(request):
     # this testing JSON data to pass all_project info
     all_ecoprojects = ecoProject.objects.all().order_by('prj_id')
@@ -84,13 +144,25 @@ def createproject(request):
     ret = dict()
     today = datetime.now().strftime('%Y-%m-%d')
     user_all = user_model.objects.exclude(username__in=['admin', request.user.username])
+    priority_all = [{'key': i[0], 'value': i[1]} for i in ecoProject.PRIORITY_CHOICES]
+    category_all = [{'key': i[0], 'value': i[1]} for i in ecoProject.CATEGORY_CHOICES]
+    status_all = [{'key': i[0], 'value': i[1]} for i in ecoProject.STATUS_CHOICES]
+    site_all = [{'key': i[0], 'value': i[1]} for i in ecoProject.DPBG_SITE_CHOICES]
+    department_all = [{'key': i[0], 'value': i[1]} for i in ecoProject.PE_DEPARTMENT_CHOICES]
+    stage_all = [{'key': i[0], 'value': i[1]} for i in ecoProject.CURRENT_STAGE_CHOICES]
     current_user = user_all[1]
     # print("username is")
     # print(user_all)
     # print(current_user)
-    ret['user_all'] = user_all
     if request.method == "GET":
-        return render(request, "createproject.html", choices_dict)
+        ret['user_all'] = user_all
+        ret['priority_all'] = priority_all
+        ret['category_all'] = category_all
+        ret['status_all'] = status_all
+        ret['site_all'] = site_all
+        ret['department_all'] = department_all
+        ret['stage_all'] = stage_all
+        return render(request, "createproject.html", ret)
     if request.method == "POST":
         ret = request.POST
         unit = ecoProject()
@@ -104,16 +176,16 @@ def createproject(request):
         unit.create_date = today # default today is the create day
         unit.start_date = ret['cStartDate']
         unit.end_date = ret['cEndDate']
-        unit.close_date = ret['cEndDate'] # temporarily set same as end date
+        unit.close_date = ret['cEndDate']
+         # temporarily set same as end date
         unit.dpbg_site = ret['cSite']
         unit.pe_department = ret['cDepartment']
         # unit.prj_creator = user_all[1] # temp set to pjmuser
         unit.prj_creator = current_user
         unit.updates = 0 # default is set to no updates yet
-        print(unit.create_date)
         unit.save()
         all_ecoprojects = ecoProject.objects.all().order_by('prj_id') 
-    return render(request, "index.html", locals())
+        return render(request, "index.html", locals())
 
 def editproject(request):
     all_ecoprojects = ecoProject.objects.all().order_by('prj_id')

@@ -1,0 +1,349 @@
+{% extends "base-static.html" %}
+{% load static %}
+
+{% block css %}
+  <link href="{% static 'css/form-validation.css' %}" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+
+<!--   <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+  <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+  <link rel="stylesheet" href="{% static 'plugins/bootstrap4/css/bootstrap-datetimepicker.min.css' %}"> -->
+ <style>
+   .headline-trim {
+     text-overflow: ellipsis;
+     white-space: nowrap;
+     overflow: hidden;
+   }
+   
+ </style>
+
+{% endblock %}
+{% block content %}
+
+<!-- Main content -->
+
+<section class="content">
+  <br>
+
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">EcoSystem</li>
+        <li class="breadcrumb-item">Projects</li>
+        <li class="breadcrumb-item active">Details</li>
+      </ol>
+    </nav>
+ 
+<div id="tabs">
+  <ul>
+    <li><a href="#tabs-1">Details</a></li>
+    <li><a href="#tabs-2">Add Updates</a></li>
+    <li><a href="#tabs-3">Add Sub-Tasks</a></li>
+    <li><a href="#tabs-4">Edit Project</a></li>
+  </ul>
+  <div id="tabs-1" class="px-1 py-2">
+    <div class="row g-0">
+    <div id="pjm-single-card" class="col-md-12 col-lg-5 ps-1">
+      <div class="h-100 p-2 bg-light border" style="border-radius: 2px;"> 
+        <div class="prj-name headline-trim fw-bold fs-5 mb-3">{{ one_prj.prj_name }}</div>
+        <div class="prj-desc">{{ one_prj.description }}</div> <hr>
+  
+    <div class="row g-2">
+    <div class="col-auto pe-5">
+      Start: <span>{{ one_prj.start_date| date:'Y-m-d'}} </span>  
+    </div>
+    <div class="col-auto pe-5">
+      End: <span>{{ one_prj.end_date| date:'Y-m-d'}} </span>  
+    </div>
+    <div class="col-auto pe-4">
+      Create: <span>{{ one_prj.create_date| date:'Y-m-d'}} </span>  
+    </div>
+    <div class="col-auto pe-5">
+      Close: <span>{{ one_prj.close_date| date:'Y-m-d'}} </span>  
+    </div>
+    </div> 
+    <hr>
+    <div class="my-2"> Tags: 
+    {% for item in priority_all %}
+      {% if one_prj.priority == item.key %}
+      <span class="badge bg-primary p-2 mb-2">{{ item.value }}</span>
+      {% endif %}
+    {% endfor %}
+    {% for item in category_all %}
+      {% if one_prj.category == item.key %}
+      <span class="badge bg-primary p-2">{{ item.value }}</span>
+      {% endif %}
+    {% endfor %}
+    {% for item in stage_all %}
+      {% if one_prj.current_stage == item.key %}
+      <span class="badge bg-success p-2">{{ item.value }}</span>
+      {% endif %}
+    {% endfor %}
+    {% for item in status_all %}
+      {% if one_prj.status == item.key %}
+      <span class="badge bg-success p-2">{{ item.value }}</span>
+      {% endif %}
+    {% endfor %}
+    {% for item in site_all %}
+      {% if one_prj.dpbg_site == item.key %}
+      <span class="badge bg-warning p-2">{{ item.value }} Site</span>
+      {% endif %}
+    {% endfor %}
+    {% for item in department_all %}
+      {% if one_prj.pe_department == item.key %}
+      <span class="badge bg-warning p-2">{{ item.value }} Dep't</span>
+      {% endif %}
+    {% endfor %}
+  </div>
+    <div class="my-2">DRI: <span>{{one_prj.prj_creator}}</span></div>
+    </div></div>
+          {% if one_prj.updates > 0 %}
+          <div id="pjm-single-card" class="col-md-12 col-lg-5 ps-0">
+            <div class="h-100 p-2 bg-light border" style="border-radius: 2px;"> 
+
+        <div class="fs-6 fw-bold">Status Updates:</div>
+        
+        <div class="package-status">
+          <div class="status-box">
+            <ul class="status-list update-item">
+              {% for unit in prj_updates reversed %}
+              <li>
+                <div class="status-content-before">{{ unit.content }}</div>
+                <div class="status-time-before">Added@{{ unit.updatetime }}</div>
+                <div class="status-line"></div>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div></div>
+        {% endif %}
+    </div>
+  </div>
+
+  <div id="tabs-2">
+    <form id="updateform" method="POST" name="added1" class="needs-validation" novalidate>
+      {% csrf_token %}
+      <div class="col-md-5">
+        <p>專案進度更新 <br>
+          <textarea name="added2" class="col-12 h-100 p-3 bg-light border" rows="4" style="border-radius: 10px;"></textarea>
+        </p>
+          <!-- The actual key name being referred to when in POST is the name="added2"-->
+          <div class="visually-hidden">
+            <input type="text" class="form-control" name="cFormType" id="cFormType" placeholder="" value="addUpdates" required>
+          </div>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+          <button id="btnSave" style="width: 90px;" class="px-4 me-sm-3 btn btn-primary" type="submit">Save</button>
+          <button id="btnCancel" style="width: 90px;" class="px-4 me-sm-3 btn btn-outline-secondary" type="reset">Reset</button> 
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div id="tabs-3">
+    <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
+    <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
+  </div>
+
+  <div id="tabs-4">
+        <!-- Project create form start here... -->
+  <!-- <div class="col-md-12 col-lg-12"> -->
+    <div class="fs-5 fw-bold py-2">Modify project contents:</div>
+
+    <div id="single-card" class="col-lg-5">
+      <div class="h-100 p-3 bg-light border" style="border-radius: 10px;">
+
+    <form method="POST" name="prjCreateForm" class="needs-validation" novalidate>
+      {% csrf_token %}
+
+      <div class="row g-3">
+
+        <div class="col-12">
+          <label for="cPrjName" class="form-label">Project Name</label>
+          <input type="text" class="form-control" name="cPrjName" id="id_cPrjName" placeholder="" value="{{ one_prj.prj_name }}" required>
+          <div class="invalid-feedback">
+            Valid project name is required.
+          </div>
+        </div>
+
+        <div class="col-12">
+          <label for="cDescription" class="form-label">Description</label>
+          <input type="text" class="form-control" name="cDescription" id="cDescription" placeholder="" value="{{ one_prj.description }}" required>
+          <div class="invalid-feedback">
+            Please describe the project details.
+          </div>
+        </div>
+
+        <div class="col-auto">
+          <label for="cStartDate" class="form-label">Start Date</label>
+          <input type="date" class="form-control" name="cStartDate" id="cStartDate" placeholder="" value="{{ one_prj.start_date| date:'Y-m-d'}}" required>
+          <div class="invalid-feedback">
+            Please specify project start date.
+          </div>
+        </div>
+
+        <div class="col-auto">
+          <label for="cEndDate" class="form-label">To Complete By</label>
+          <input type="date" class="form-control" name="cEndDate" id="cEndDate" placeholder="" value="{{ one_prj.end_date| date:'Y-m-d'}}"required>
+          <div class="invalid-feedback">
+            Please specify planned complete date.
+          </div>
+        </div>
+
+        <div class="col-auto">
+          <label for="cCloseDate" class="form-label">Close Date</label>
+          <input type="date" class="form-control" name="cCloseDate" id="cCloseDate" placeholder="" value="{{ one_prj.close_date| date:'Y-m-d'}}">
+          <div class="invalid-feedback">
+            If project not closed yet, specify an expected project close date.
+          </div>
+        </div>
+        
+        <hr class="mt-4 mb-1">
+
+        <div class="col-auto">
+          <label for="cPriority" class="form-label">Priority</label>
+          <select class="form-select" name="cPriority" id="id_cPriority" required>
+            {% for item in priority_all %}
+            <option value="{{ item.key }}"
+              {% if item.key == one_prj.priority %}
+                selected> {{ item.value }}</option>
+              {% else %}
+                 > {{ item.value }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+          <div class="invalid-feedback">
+            Please assign priority.
+          </div>
+        </div>
+
+        <div class="col-auto">
+          <label for="cCategory" class="form-label">Category</label>
+          <select class="form-select" name="cCategory" id="id_cCategory" required>
+            {% for item in category_all %}
+            <option value="{{ item.key }}"
+              {% if item.key == one_prj.category %}
+                selected> {{ item.value }}</option>
+              {% else %}
+                 > {{ item.value }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+          <div class="invalid-feedback">
+            Please specify category.
+          </div>
+        </div>
+
+        <div class="col-auto">
+          <label for="cStage" class="form-label">Current Stage</label>
+          <select class="form-select" name="cStage" id="id_cStage" required>
+            {% for item in stage_all %}
+            <option value="{{ item.key }}"
+              {% if item.key == one_prj.current_stage %}
+                selected> {{ item.value }}</option>
+              {% else %}
+                 > {{ item.value }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+          <div class="invalid-feedback">
+            Please specify project current stage.
+          </div>
+        </div>
+
+        <div class="col-auto">
+          <label for="cStatus" class="form-label">Project Status</label>
+          <select class="form-select" name="cStatus" id="id_cStatus" required>
+            {% for item in status_all %}
+            <option value="{{ item.key }}"
+              {% if item.key == one_prj.status %}
+                selected> {{ item.value }}</option>
+              {% else %}
+                 > {{ item.value }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+          <div class="invalid-feedback">
+            Please specify project status.
+          </div>
+        </div>
+
+        <div class="col-auto">
+          <label for="cSite" class="form-label">FX Site</label>
+          <select class="form-select" name="cSite" id="cSite" required>
+            {% for item in site_all %}
+            <option value="{{ item.key }}"
+              {% if item.key == one_prj.dpbg_site %}
+                selected> {{ item.value }}</option>
+              {% else %}
+                 > {{ item.value }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+          <div class="invalid-feedback">
+            Please assign a factory site.
+          </div>
+        </div>
+
+        <div class="col-auto">
+          <label for="cDepartment" class="form-label">Department</label>
+          <select class="form-select" name="cDepartment" id="cDepartment" required>
+            {% for item in department_all %}
+            <option value="{{ item.key }}"
+              {% if item.key == one_prj.pe_department %}
+                selected> {{ item.value }}</option>
+              {% else %}
+                 > {{ item.value }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+          <div class="invalid-feedback">
+            Please assign a PE department.
+          </div>
+        </div>
+
+        <div class="visually-hidden">
+          <input type="text" class="form-control" name="cFormType" id="cFormType" placeholder="" value="editPrj" required>
+        </div>
+        <hr class="mt-4 mb-1">
+
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-2">
+          <button id="btnSave" style="width: 90px;" class="px-4 me-sm-3 btn btn-primary" type="submit">Save</button>
+
+          <div class="col-1 ps-1">
+            <a href="/projects" class="btn btn-secondary text-white" style="width: 90px;">
+              Cancel</a>
+          </div>
+
+
+          <!-- <button id="btnCancel" style="width: 90px;" class="px-4 me-sm-3 btn btn-outline-secondary" type="reset">Reset</button>  -->
+          <!-- <button class="w-100 btn btn-primary btn-lg" type="submit">Checkout</button> -->
+        </div>
+
+      </div>
+    </form>
+    </div></div>
+  </div>
+  
+  <!-- </div> -->
+</div>
+   
+          
+</section>
+
+<!-- /.content -->
+
+{% endblock %}
+<!-- End of Content Block -->
+
+<!-- End of Main Block *** if not extend base-left template then need to add main block-->
+{% block javascripts %}
+<script src="{% static 'js/form-validation.js' %}"></script>
+<script src="{% static 'js/mycardview.js' %}"></script>
+<script>
+    $( function() {
+      $( "#tabs" ).tabs();
+    } );
+    </script>
+
+
+{% endblock %}
