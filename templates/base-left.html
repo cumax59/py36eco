@@ -6,6 +6,62 @@
 
 category_all = [{'key': i[0], 'value': i[1]} for i in CalEvent.cat_choices]
 
+in views.py of pjm
+def singlecardview(request, index):
+    all_ecoprojects = ecoProject.objects.all().order_by('prj_id')
+    one_prj = all_ecoprojects[int(index)]
+    prj_updates = UpdatesQueue.objects.filter(parent=one_prj.prj_id)    
+    if request.method == "GET":
+        print("Index been chosen: ", index)
+        print("Prj Updates content: ", prj_updates)
+        return render(request, "singlecardview.html", locals())
+    if request.method == "POST":
+        ret = request.POST
+        update_content = ret['added2']
+        working_id = one_prj.prj_id
+        if len(update_content) > 3:    # too few words, reject to add 
+            one_update = UpdatesQueue.objects.create(parent=working_id, content=update_content)
+            one_update.save()
+            one_prj = ecoProject.objects.get(prj_id=working_id)
+            one_prj.updates = one_prj.updates + 1
+            one_prj.save()
+            all_ecoprojects = ecoProject.objects.all().order_by('prj_id') #sync records from database
+            one_prj = all_ecoprojects[int(index)]
+            prj_updates = UpdatesQueue.objects.filter(parent=working_id)
+            print("update list:")
+            print(prj_updates)   
+        return render(request, "singlecardview.html", locals())
+
+<td>
+  <button id="edit" class="btn btn-sm"
+    <i class="fa fa-"></i>
+  </button>
+</td>
+
+javascript jquery
+$('#edit').on('click', function() {
+  var userName = $(this).parents("tr").find(#userName).text();
+  // or you can use class to find the target
+});
+
+     
+
+<script type="text/javascript">
+  var list = document.getElementsByClassName('prj-view-row');
+  for(var i=0; i<list.length; i++){
+    list[i].index=i;
+    list[i].onclick = 
+    function () {
+     // alert(this.index);
+      var href = 'http://127.0.0.1:8000/singleprojecttabs/';
+      href += this.index;
+      console.log(href);
+      window.open(href,'_self');
+    }
+  }  
+   //   window.open('http://127.0.0.1:8000/testpasspara','_self');
+</script>
+
 
   <main class="col-md-9 ms-sm-auto col-lg-10 px-md-2">
     

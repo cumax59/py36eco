@@ -108,7 +108,7 @@
               {% for unit in prj_updates reversed %}
               <li>
                 <div class="status-content-before">{{ unit.content }}</div>
-                <div class="status-time-before">Added@{{ unit.updatetime }}</div>
+                <div class="status-time-before">Added@{{ unit.updatetime }} by {{current_user}}</div>
                 <div class="status-line"></div>
               </li>
               {% endfor %}

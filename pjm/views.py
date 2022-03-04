@@ -24,31 +24,6 @@ def projectview(request):
     all_ecoprojects = ecoProject.objects.all().order_by('prj_id')
     return render(request, "projectview.html", locals())
 
-def singlecardview(request, index):
-    all_ecoprojects = ecoProject.objects.all().order_by('prj_id')
-    one_prj = all_ecoprojects[int(index)]
-    prj_updates = UpdatesQueue.objects.filter(parent=one_prj.prj_id)    
-    if request.method == "GET":
-        print("Index been chosen: ", index)
-        print("Prj Updates content: ", prj_updates)
-        return render(request, "singlecardview.html", locals())
-    if request.method == "POST":
-        ret = request.POST
-        update_content = ret['added2']
-        working_id = one_prj.prj_id
-        if len(update_content) > 3:    # too few words, reject to add 
-            one_update = UpdatesQueue.objects.create(parent=working_id, content=update_content)
-            one_update.save()
-            one_prj = ecoProject.objects.get(prj_id=working_id)
-            one_prj.updates = one_prj.updates + 1
-            one_prj.save()
-            all_ecoprojects = ecoProject.objects.all().order_by('prj_id') #sync records from database
-            one_prj = all_ecoprojects[int(index)]
-            prj_updates = UpdatesQueue.objects.filter(parent=working_id)
-            print("update list:")
-            print(prj_updates)   
-        return render(request, "singlecardview.html", locals())
-
 def singleprojecttabs(request, index):
     all_ecoprojects = ecoProject.objects.all().order_by('prj_id')
     one_prj = all_ecoprojects[int(index)]
@@ -73,7 +48,7 @@ def singleprojecttabs(request, index):
             update_content = ret['added2']
             working_id = one_prj.prj_id
             if len(update_content) > 3:    # too few words, reject to add 
-                one_update = UpdatesQueue.objects.create(parent=working_id, content=update_content)
+                one_update = UpdatesQueue.objects.create(parent=working_id, content=update_content, editor=current_user)
                 one_update.save()
                 one_prj = ecoProject.objects.get(prj_id=working_id)
                 one_prj.updates = one_prj.updates + 1

@@ -35,7 +35,7 @@
         <tbody>
           {% for unit in all_ecoprojects %}
           <tr class="prj-view-row">
-            <td>{{ unit.prj_id }}</td>
+            <td class="prj-id">{{ unit.prj_id }}</td>
             <td>{{ unit.prj_name }} </td>
             <td class="category_choices">{{ unit.category }} </td>
             <td>{{ unit.description }} </td>
@@ -43,7 +43,10 @@
             <td>{{ unit.end_date|date:"Y/m/d" }} </td>
             <td class="site_choices">{{ unit.dpbg_site }} </td>
             <td class="department_choices">{{ unit.pe_department }} </td>
-            <td>{{ unit.prj_creator }} </td>
+            <!-- <td>{{ unit.prj_creator }} </td> -->
+            <td>
+              <button id="editTask" class="btn btn-danger btn-sm">Add Task</button>
+            </td>
             <td> 
               <button type="button" class="btn btn-success btn-sm">
                 Updates <span class="badge bg-secondary">{{ unit.updates }}</span>
@@ -81,7 +84,6 @@
       position[i].textContent = j_department_choices[Number(position[i].textContent)];
     };
   };
-
 </script>
 <script type="text/javascript">
   var list = document.getElementsByClassName('prj-view-row');
@@ -96,14 +98,5 @@
       window.open(href,'_self');
     }
   }  
-   //   window.open('http://127.0.0.1:8000/testpasspara','_self');
-
 </script>
-<script type="text/javascript">
-  $(function () {
-    $('#DailyReport').addClass('active');
-    $('#MyReport').addClass('active');
-  });
-</script>
-
 {% endblock %}

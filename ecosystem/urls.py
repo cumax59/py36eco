@@ -23,9 +23,9 @@ urlpatterns = [
     path('admin/', admin.site.urls), 
     # will run admin.site.urls this function, so need import admin
     path('hello3/', views.hello3),
-    path('', views.starterpage),
+    path('', views.projectview),
     path('projects/', views.projectview),
-    path('singlecardview/<str:index>', views.singleprojecttabs),
+    # path('singlecardview/<str:index>', views.singleprojecttabs),
     path('singleprojecttabs/<str:index>', views.singleprojecttabs),  
     path('dashboardview/', views.dashboardview),
     path('createproject/', views.createproject),

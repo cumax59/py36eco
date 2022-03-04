@@ -98,8 +98,39 @@ class UpdatesQueue(models.Model):
     parent = models.PositiveBigIntegerField(null=True, blank=True)
     content = models.TextField(max_length=240, default="", verbose_name='Status Updates')
     updatetime = models.DateTimeField(auto_now_add=True, blank=False)
-    # editor = models.ForeignKey(User, on_delete=models.DO_NOTHING, default='', verbose_name='作者')
-    # next = models.PositiveBigIntegerField(null=True, blank=True)
+    editor = models.ForeignKey(User, on_delete=models.DO_NOTHING, default='', verbose_name='作者')
+
+    def __int__(self):
+        return self.parent
+
+class Task(models.Model):
+    STATUS_CHOICES = (      # verbose_name='任務狀態'
+        (0, 'Ongoing'),
+        (1, 'Pending'),
+        (2, 'Closed'),
+        (3, 'Cancel'),
+    )
+    task_id = models.AutoField(primary_key=True)
+    task_name = models.CharField(max_length=60, verbose_name='任務名稱')
+    parentprj = models.ForeignKey(ecoProject, on_delete=models.DO_NOTHING, default='')
+    status = models.IntegerField(choices=STATUS_CHOICES, default=0, verbose_name='任務狀態')
+    start_date = models.DateField(null=False, blank=True, default="", verbose_name='開始日期')
+    end_date = models.DateField(null=False, blank=True, default="", verbose_name='預計完成日期')
+    close_date = models.DateField(null=True, blank=True, default="", verbose_name='結案日期')
+    dri = models.ForeignKey(User, on_delete=models.DO_NOTHING, default='')
+    progress = models.IntegerField(blank=False, default=0, verbose_name='任務進度')
+    updates = models.PositiveBigIntegerField(blank=False, default=0)
+
+    def __str__(self):
+        return self.task_name
+
+class TaskUpdatesQueue(models.Model):
+    update_id = models.AutoField(primary_key=True)
+    parent = models.PositiveBigIntegerField(null=True, blank=True)
+    content = models.TextField(max_length=240, default="", verbose_name='Status Updates')
+    updatetime = models.DateTimeField(auto_now_add=True, blank=False)
+    editor = models.ForeignKey(User, on_delete=models.DO_NOTHING, default='', verbose_name='Editor')
+
 
     def __int__(self):
         return self.parent
